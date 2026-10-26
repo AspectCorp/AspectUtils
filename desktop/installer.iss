@@ -25,5 +25,5 @@ Source: "..\artifacts\desktop\*"; DestDir: "{app}"; Flags: ignoreversion recurse
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 
-[Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "Launch {#MyAppName}"; Flags: nowait postinstall skipifsilent
+; Auto-launch disabled: the app requires administrator rights and cannot be
+; started from the installer's elevated context without a UAC prompt.
