@@ -116,9 +116,11 @@ jobs:
 
       - name: Install Inno Setup
         uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
+        with:
+          path: desktop/installer.iss
 
-      - name: Build installer
-        run: ISCC.exe .\desktop\installer.iss
+      - name: Locate installer
+        run: Get-ChildItem -Path artifacts -Recurse -Filter *.exe
 
       - name: Upload desktop artifact
         uses: actions/upload-artifact@v7
