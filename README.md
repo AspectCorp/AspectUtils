@@ -10,7 +10,7 @@ A$PECT UTILS is a rebranded fork of [WinUtil](https://github.com/ChrisTitusTech/
 
 ### Desktop app
 
-Build the desktop app from source with the .NET 8 SDK:
+Download the latest self-contained build from the [Releases page](https://github.com/flickfpz/AspectUtils/releases/latest) (`AspectUtils-Desktop.zip`), or build it from source with the .NET 8 SDK:
 
 ```powershell
 dotnet build desktop\AspectUtils.Desktop.csproj -c Release

@@ -90,14 +90,49 @@ jobs:
           name: aspectutils-ps1
           path: ./AspectUtils.ps1
 
+  build-desktop:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Publish desktop app
+        run: >
+          dotnet publish desktop\AspectUtils.Desktop.csproj
+          -c Release
+          -r win-x64
+          --self-contained true
+          -p:PublishSingleFile=true
+          -o artifacts\desktop
+
+      - name: Zip desktop release
+        run: Compress-Archive -Path artifacts\desktop\* -DestinationPath AspectUtils-Desktop.zip
+
+      - name: Upload desktop artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: aspectutils-desktop
+          path: AspectUtils-Desktop.zip
+          if-no-files-found: error
+
   release:
-    needs: build-runspace
+    needs: [build-runspace, build-desktop]
     runs-on: ubuntu-latest
     steps:
       - name: Download compiled script
         uses: actions/download-artifact@v8
         with:
           name: aspectutils-ps1
+
+      - name: Download desktop release
+        uses: actions/download-artifact@v8
+        with:
+          name: aspectutils-desktop
 
       - name: Set version from build job
         run: echo "VERSION=${{ needs.build-runspace.outputs.version }}" >> $GITHUB_ENV
@@ -137,7 +172,9 @@ jobs:
 
             ![GitHub Downloads (specific asset, specific tag)](https://img.shields.io/github/downloads/Fl1ckfps/AspectUtils/${{ env.VERSION }}/AspectUtils.ps1)
           append_body: false
-          files: ./AspectUtils.ps1
+          files: |
+            ./AspectUtils.ps1
+            ./AspectUtils-Desktop.zip
           prerelease: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
