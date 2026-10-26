@@ -1,45 +1,50 @@
-# Chris Titus Tech's Windows Utility
+# A$PECT UTILS
 
-[![Version](https://img.shields.io/github/v/release/ChrisTitusTech/winutil?color=%230567ff&label=Latest%20Release&style=for-the-badge)](https://github.com/ChrisTitusTech/winutil/releases/latest)
-![Downloads](https://img.shields.io/github/downloads/ChrisTitusTech/winutil/winutil.ps1?label=Total%20Downloads&style=for-the-badge)
-[![Discord](https://dcbadge.limes.pink/api/server/https://discord.gg/RUbZUZyByQ?theme=default-inverted&style=for-the-badge)](https://discord.gg/RUbZUZyByQ)
+A$PECT UTILS is a Windows 11 setup utility for installing apps, applying reversible tweaks, running common fixes, and controlling Windows Update. It ships as a PowerShell app and as a native WPF desktop app, and both front ends read the same configuration files in `config/`.
 
-A curated compilation of Windows system tasks streamline **installs**, debloat with **tweaks**, troubleshoot with **config**, and configure **Windows updates**. Run it fresh on every new Windows install.
+A$PECT UTILS is a rebranded fork of [WinUtil](https://github.com/ChrisTitusTech/winutil) by Chris Titus Tech and contributors, used under the MIT license. See [NOTICE.md](NOTICE.md).
 
-![Title Screen](docs/src/assets/branding/title-screen.png)
+![A$PECT UTILS](docs/public/social-preview.png)
 
+## Quick start
 
----
+### Desktop app
 
-## Quick Start
+Build the desktop app from source with the .NET 8 SDK:
 
-> **WinUtil must be run as Administrator** because it performs system-wide changes.
-
-Open PowerShell or Terminal as admin, then run:
-
-**Stable Branch (recommended)**
-```ps1
-irm https://christitus.com/win | iex
+```powershell
+dotnet build desktop\AspectUtils.Desktop.csproj -c Release
+.\desktop\bin\Release\net8.0-windows\AspectUtils.exe
 ```
 
-**Development Branch**
-```ps1
-irm https://christitus.com/windev | iex
+To produce a self-contained build you can copy to another PC:
+
+```powershell
+dotnet publish desktop\AspectUtils.Desktop.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o artifacts\desktop
 ```
 
-### How to open an admin terminal
+The app requests administrator rights when it starts. See [desktop/README.md](desktop/README.md) for details.
 
-- **Start menu:** Right-click Start → *Windows PowerShell (Admin)* or *Terminal (Admin)*
-- **Search:** Press the `Windows key`, and type `PowerShell` or `Terminal`, then `Ctrl + Shift + Enter`
+### PowerShell
 
----
+Run PowerShell or Terminal as Administrator, then:
 
-## Automation / Presets
+```powershell
+irm "https://github.com/Fl1ckfps/AspectUtils/releases/latest/download/AspectUtils.ps1" | iex
+```
+
+To run from a local checkout instead:
+
+```powershell
+.\Compile.ps1 -Run
+```
+
+### Presets
 
 Apply a predefined configuration without manual selection:
 
 ```powershell
-& ([ScriptBlock]::Create((irm https://christitus.com/win))) -Preset Standard
+& ([ScriptBlock]::Create((irm "https://github.com/Fl1ckfps/AspectUtils/releases/latest/download/AspectUtils.ps1"))) -Preset Standard
 ```
 
 | Preset | Description |
@@ -48,44 +53,67 @@ Apply a predefined configuration without manual selection:
 | `Minimal` | Minimal changes to suit every user |
 | `Advanced` | Deep tweaks for power users |
 
-To view exactly what each preset does, see:
-https://github.com/ChrisTitusTech/winutil/blob/main/config/preset.json
+The exact contents are defined in [`config/preset.json`](config/preset.json).
 
----
+## What's included
 
-## Build & Develop
+- **Install apps** through WinGet and Chocolatey, including upgrade and uninstall flows.
+- **Tweaks with undo**: reversible registry and service changes, plus one-time cleanup actions.
+- **Windows features** such as Hyper-V, WSL, .NET, Sandbox, and legacy panels.
+- **Fixes** for networking, NTP, system repair, WinGet, and Windows Update.
+- **Windows Update profiles**: default, recommended, and disabled, with a restore path.
+- **Activation tab** for Windows and Office via Microsoft Activation Scripts (MAS).
+- **Own branding and documentation** with a mint and gray theme.
 
-See https://github.com/ChrisTitusTech/winutil/blob/main/.github/CONTRIBUTING.md
+The desktop app covers installs, tweaks and undo, fixes, features, and update profiles. AppX package management and Win11 Creator are currently available only in the PowerShell app.
 
----
+## Build and develop
 
-## Resources
+The PowerShell app compiles from the source files in `scripts/`, `functions/`, and `xaml/`:
 
-- [Official Documentation](https://winutil.christitus.com/)
-- [YouTube Tutorial](https://www.youtube.com/watch?v=6UQZ5oQg8XA)
-- [ChrisTitus.com Article](https://christitus.com/windows-tool/)
-- [Known Issues](https://winutil.christitus.com/knownissues/)
-- [Report an Issue](https://github.com/ChrisTitusTech/winutil/issues)
+```powershell
+.\Compile.ps1
+```
 
----
+The compiled `AspectUtils.ps1` is generated output and is not committed.
 
-## Support
+Desktop app:
 
-- Leave a ⭐ to show support!
-- Faster Dotnet Implementation for sale here: https://www.cttstore.com/windows-toolbox
+```powershell
+dotnet build desktop\AspectUtils.Desktop.csproj -c Debug
+```
 
-## Sponsors
+Tests:
 
-These are the sponsors that help keep this project alive with monthly contributions.
+```powershell
+Import-Module Pester -RequiredVersion 5.8.0 -Force
+Invoke-Pester -Path 'pester/*.Tests.ps1' -Output Detailed -CI
+```
 
-<!-- sponsors --><a href="https://github.com/dwelfusius"><img src="https:&#x2F;&#x2F;github.com&#x2F;dwelfusius.png" width="60px" alt="User avatar: " /></a><a href="https://github.com/mews-se"><img src="https:&#x2F;&#x2F;github.com&#x2F;mews-se.png" width="60px" alt="User avatar: Martin" /></a><a href="https://github.com/jdiegmueller"><img src="https:&#x2F;&#x2F;github.com&#x2F;jdiegmueller.png" width="60px" alt="User avatar: Jason A. Diegmueller" /></a><a href="https://github.com/robertsandrock"><img src="https:&#x2F;&#x2F;github.com&#x2F;robertsandrock.png" width="60px" alt="User avatar: RMS" /></a><a href="https://github.com/paulsheets"><img src="https:&#x2F;&#x2F;github.com&#x2F;paulsheets.png" width="60px" alt="User avatar: Paul" /></a><a href="https://github.com/djones369"><img src="https:&#x2F;&#x2F;github.com&#x2F;djones369.png" width="60px" alt="User avatar: Dave J  (WhamGeek)" /></a><a href="https://github.com/anthonymendez"><img src="https:&#x2F;&#x2F;github.com&#x2F;anthonymendez.png" width="60px" alt="User avatar: Anthony Mendez" /></a><a href="https://github.com/FatBastard0"><img src="https:&#x2F;&#x2F;github.com&#x2F;FatBastard0.png" width="60px" alt="User avatar: " /></a><a href="https://github.com/DursleyGuy"><img src="https:&#x2F;&#x2F;github.com&#x2F;DursleyGuy.png" width="60px" alt="User avatar: DursleyGuy" /></a><a href="https://github.com/DwayneTheRockLobster1"><img src="https:&#x2F;&#x2F;github.com&#x2F;DwayneTheRockLobster1.png" width="60px" alt="User avatar: " /></a><a href="https://github.com/KieraKujisawa"><img src="https:&#x2F;&#x2F;github.com&#x2F;KieraKujisawa.png" width="60px" alt="User avatar: Kiera Meredith" /></a><a href="https://github.com/seanh1995"><img src="https:&#x2F;&#x2F;github.com&#x2F;seanh1995.png" width="60px" alt="User avatar: Sean (ANGRYxScotsman)" /></a><a href="https://github.com/josencarnacao"><img src="https:&#x2F;&#x2F;github.com&#x2F;josencarnacao.png" width="60px" alt="User avatar: José Encarnação" /></a><a href="https://github.com/tomandesMSH"><img src="https:&#x2F;&#x2F;github.com&#x2F;tomandesMSH.png" width="60px" alt="User avatar: TomandesMSH" /></a><!-- sponsors -->
+Script Analyzer:
 
-*<sub>Sponsors with a recurring subscription also get access to the .NET alternative.</sub>
+```powershell
+Invoke-ScriptAnalyzer -Path . -Settings .\lint\PSScriptAnalyser.ps1 -Recurse
+```
 
----
+## Repository layout
 
-## Contributors
+| Path | Purpose |
+|------|---------|
+| `AspectUtils.ps1` | Compiled PowerShell app (generated, gitignored) |
+| `Compile.ps1` | Builds `AspectUtils.ps1` from the source files |
+| `scripts/`, `functions/`, `xaml/` | PowerShell app source |
+| `config/` | Shared JSON catalogs for apps, tweaks, features, and presets |
+| `desktop/` | Native .NET 8 WPF desktop app |
+| `docs/` | Astro/Starlight documentation site |
+| `tools/branding/` | Generates the logo, social preview, and app icon |
 
-[![Contributors](https://contrib.rocks/image?repo=ChrisTitusTech/winutil)](https://github.com/ChrisTitusTech/winutil/graphs/contributors)
+## Documentation
 
-Thanks to everyone who has contributed time and effort to this project. Keep rocking 🍻
+- [Documentation site source](docs/)
+- [Desktop app notes](desktop/README.md)
+- [Contributing guide](docs/src/content/docs/contributing.mdx)
+
+## License
+
+MIT. The original WinUtil copyright notice is preserved in [LICENSE](LICENSE). See [NOTICE.md](NOTICE.md) for attribution and a summary of changes.

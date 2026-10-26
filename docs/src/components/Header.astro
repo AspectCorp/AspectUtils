@@ -15,6 +15,10 @@ const shouldRenderSearch =
 
 // Pages with a sidebar already have Starlight's own mobile menu toggle; only splash pages need this one.
 const { hasSidebar } = Astro.locals.starlightRoute;
+
+// Astro exposes the configured base path without a trailing slash.
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const withBase = (path: string) => `${base}${path}`;
 ---
 
 <div class="header">
@@ -37,17 +41,17 @@ const { hasSidebar } = Astro.locals.starlightRoute;
 					<div id="site-nav-panel" class="site-nav-panel">
 						<div class="site-nav-panel-group">
 							<p class="site-nav-panel-heading">Documentation</p>
-							<a href="/guides/">User Guides</a>
-							<a href="/contributing/">Contribution Guides</a>
-							<a href="/code-reference/architecture/">Code Reference</a>
+							<a href={withBase('/guides/')}>User Guides</a>
+							<a href={withBase('/contributing/')}>Contribution Guides</a>
+							<a href={withBase('/code-reference/architecture/')}>Code Reference</a>
 						</div>
 						<div class="site-nav-panel-group">
 							<p class="site-nav-panel-heading">Help</p>
-							<a href="/faq/">FAQ</a>
-							<a href="/knownissues/">Known Issues</a>
-							<a href={siteLinks.forums.href} target="_blank" rel="noreferrer">{siteLinks.forums.label}</a>
+							<a href={withBase('/faq/')}>FAQ</a>
+							<a href={withBase('/knownissues/')}>Known Issues</a>
+							<a href={siteLinks.issues.href} target="_blank" rel="noreferrer">{siteLinks.issues.label}</a>
 						</div>
-						<a class="site-nav-panel-link" href={siteLinks.store.href} target="_blank" rel="noreferrer">{siteLinks.store.label}</a>
+						<a class="site-nav-panel-link" href={siteLinks.repo.href} target="_blank" rel="noreferrer">{siteLinks.repo.label}</a>
 					</div>
 				</div>
 			)
@@ -62,9 +66,9 @@ const { hasSidebar } = Astro.locals.starlightRoute;
 					<summary class="site-nav-link">Documentation</summary>
 				</details>
 				<div class="site-nav-menu">
-					<a href="/guides/">User Guides</a>
-					<a href="/contributing/">Contribution Guides</a>
-					<a href="/code-reference/architecture/">Code Reference</a>
+					<a href={withBase('/guides/')}>User Guides</a>
+					<a href={withBase('/contributing/')}>Contribution Guides</a>
+					<a href={withBase('/code-reference/architecture/')}>Code Reference</a>
 				</div>
 			</div>
 			{/* "Help" dropdown. */}
@@ -73,12 +77,12 @@ const { hasSidebar } = Astro.locals.starlightRoute;
 					<summary class="site-nav-link">Help</summary>
 				</details>
 				<div class="site-nav-menu">
-					<a href="/faq/">FAQ</a>
-					<a href="/knownissues/">Known Issues</a>
-					<a href={siteLinks.forums.href} target="_blank" rel="noreferrer">{siteLinks.forums.label}</a>
+					<a href={withBase('/faq/')}>FAQ</a>
+					<a href={withBase('/knownissues/')}>Known Issues</a>
+					<a href={siteLinks.issues.href} target="_blank" rel="noreferrer">{siteLinks.issues.label}</a>
 				</div>
 			</div>
-			<a class="site-nav-link" href={siteLinks.store.href} target="_blank" rel="noreferrer">{siteLinks.store.label}</a>
+			<a class="site-nav-link" href={siteLinks.repo.href} target="_blank" rel="noreferrer">{siteLinks.repo.label}</a>
 		</nav>
 		<div class="sl-flex social-icons">
 			<SocialIcons />

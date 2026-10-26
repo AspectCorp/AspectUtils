@@ -1,8 +1,8 @@
-# WinUtil Docs
+# A$PECT UTILS Docs
 
 [![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
 
-Documentation site for [WinUtil](https://github.com/ChrisTitusTech/winutil), built with [Astro](https://astro.build) and [Starlight](https://starlight.astro.build). Served at [winutil.christitus.com](https://winutil.christitus.com/).
+Documentation site for [A$PECT UTILS](https://github.com/Fl1ckfps/AspectUtils), built with [Astro](https://astro.build) and [Starlight](https://starlight.astro.build). It is set up for GitHub Pages at [fl1ckfps.github.io/AspectUtils](https://fl1ckfps.github.io/AspectUtils/). Change `site` and `base` in `astro.config.mjs` if you host it elsewhere.
 
 ## 🚀 Project Structure
 
@@ -59,3 +59,7 @@ The first `docker compose up` (or any command before an image exists) builds the
 ## 👀 Want to learn more?
 
 Check out [Starlight's docs](https://starlight.astro.build/), read [the Astro documentation](https://docs.astro.build), or jump into the [Astro Discord server](https://astro.build/chat).
+
+## Attribution
+
+The documentation and application are based on [WinUtil](https://github.com/ChrisTitusTech/winutil) by Chris Titus Tech and contributors, used under the MIT license. See the repository's `NOTICE.md` and `LICENSE` files.

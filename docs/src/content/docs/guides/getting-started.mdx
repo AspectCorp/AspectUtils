@@ -1,20 +1,20 @@
 ---
 title: Getting Started
-description: The safest way to get started with WinUtil and the first actions most users take.
+description: The safest way to get started with A$PECT UTILS and the first actions most users take.
 sidebar:
   order: 1
 ---
 
-## Welcome to WinUtil!
+## Welcome to A$PECT UTILS!
 
-WinUtil helps you install apps, apply system tweaks, run common fixes, and manage Windows settings from one place. This guide covers the safest way to get started and the first actions most users take.
+A$PECT UTILS helps you install apps, apply system tweaks, run common fixes, and manage Windows settings from one place. This guide covers the safest way to get started and the first actions most users take.
 
 ## System requirements
 
-Before running WinUtil, ensure your system meets these requirements:
+Before running A$PECT UTILS, ensure your system meets these requirements:
 
 :::caution
-Windows 10 is not supported by WinUtil. Windows 10 reached the end of support on **October 14, 2025**.
+Windows 10 is not supported by A$PECT UTILS. Windows 10 reached the end of support on **October 14, 2025**.
 :::
 
 - **Operating system**: Windows 11
@@ -25,7 +25,7 @@ Windows 10 is not supported by WinUtil. Windows 10 reached the end of support on
 
 ## Installation
 
-WinUtil doesn't require traditional installation. It runs directly from PowerShell as a script.
+A$PECT UTILS doesn't require traditional installation. It runs directly from PowerShell as a script.
 
 ### Step 1: Open PowerShell as Administrator
 
@@ -56,23 +56,25 @@ With PowerShell running as Administrator, run one of the following commands depe
 **Stable release (recommended)**
 
 ```powershell
-irm "https://christitus.com/win" | iex
+irm "https://github.com/Fl1ckfps/AspectUtils/releases/latest/download/AspectUtils.ps1" | iex
 ```
 
-**Development branch (bleeding edge — for testing only)**
+**Pre-release (bleeding edge — for testing only)**
+
+Download the newest pre-release from [GitHub Releases](https://github.com/Fl1ckfps/AspectUtils/releases), then run the downloaded script from PowerShell:
 
 ```powershell
-irm "https://christitus.com/windev" | iex
+.\AspectUtils.ps1
 ```
 
 :::note
 - The `irm` command downloads the script, and `iex` executes it. This is safe when downloading from the official source.
-- The development branch may contain experimental changes and should only be used for testing on non-production systems.
+- Pre-release builds may contain experimental changes and should only be used for testing on non-production systems.
 :::
 
-### Step 3: Wait for WinUtil to load
+### Step 3: Wait for A$PECT UTILS to load
 
-The first time you run WinUtil, it may take a few moments to:
+The first time you run A$PECT UTILS, it may take a few moments to:
 
 - Download the latest version
 - Initialize the interface
@@ -82,7 +84,7 @@ The first time you run WinUtil, it may take a few moments to:
 
 ### Understanding the interface
 
-WinUtil opens with a clean, tabbed interface:
+A$PECT UTILS opens with a clean, tabbed interface:
 
 **Main tabs**:
 
@@ -190,7 +192,7 @@ For improved privacy and speed:
 
 ## Understanding presets
 
-WinUtil offers several preset configurations:
+A$PECT UTILS offers several preset configurations:
 
 - **Minimal**: Minimal changes that keep most Windows features
 - **Standard**: A good middle ground for most users
@@ -221,19 +223,19 @@ WinUtil offers several preset configurations:
 If the launch command fails:
 
 - Make sure PowerShell or Terminal is running as Administrator.
-- Confirm the PC has internet access and can reach `christitus.com`.
+- Confirm the PC has internet access and can reach `github.com`.
 - Retry from a normal PowerShell session rather than a restricted enterprise shell profile.
 - If the command starts and then closes immediately, reopen Terminal as Administrator and run it again so you can read the error output.
 
-If it still fails, check the [Known Issues](/knownissues/) page.
+If it still fails, check the [Known Issues](../../knownissues/) page.
 
 ## Next steps
 
 Now that you're set up, explore these guides:
 
-- [Applications Guide](/guides/application/) — Learn about installing, upgrading, and uninstalling software
-- [Tweaks Guide](/guides/tweaks/) — Understand system optimizations
-- [FAQ](/faq/) — Common questions and answers
+- [Applications Guide](../application/) — Learn about installing, upgrading, and uninstalling software
+- [Tweaks Guide](../tweaks/) — Understand system optimizations
+- [FAQ](../../faq/) — Common questions and answers
 
 ## Exporting a diagnostics report
 
@@ -246,19 +248,17 @@ If you're reporting a problem, click the gear icon in the top-right corner and c
 - Whether a reboot is pending
 - The current applied/not-applied state of every tweak and toggle
 
-It does not include computer or user names, paths, IP or MAC addresses, serial numbers, installed-app inventories, services, raw registry paths or values, secrets, or logs. The tweak/toggle state is derived from a registry comparison, but only the resulting true/false per tweak is included, not any registry content itself. WinUtil never uploads the report — you choose where to save it and who to send it to.
+It does not include computer or user names, paths, IP or MAC addresses, serial numbers, installed-app inventories, services, raw registry paths or values, secrets, or logs. The tweak/toggle state is derived from a registry comparison, but only the resulting true/false per tweak is included, not any registry content itself. A$PECT UTILS never uploads the report — you choose where to save it and who to send it to.
 
-You'll be asked whether to also bundle the last 7 days of WinUtil logs into a companion `.txt` file, which maintainers often need alongside the report to diagnose an issue. This companion is raw log output and does not use the JSON report's privacy allowlist: it may contain local paths, commands, and error details. Review it before sharing.
+You'll be asked whether to also bundle the last 7 days of A$PECT UTILS logs into a companion `.txt` file, which maintainers often need alongside the report to diagnose an issue. This companion is raw log output and does not use the JSON report's privacy allowlist: it may contain local paths, commands, and error details. Review it before sharing.
 
 ## Getting help
 
 If you need assistance:
 
 - **Documentation**: Browse this documentation site
-- **Known Issues**: Check the [Known Issues](/knownissues/) page
-- **Discord**: Join the [community Discord server](https://discord.gg/RUbZUZyByQ)
-- **GitHub Issues**: Report bugs on [GitHub](https://github.com/ChrisTitusTech/winutil/issues)
-- **YouTube**: Watch [video tutorials](https://www.youtube.com/watch?v=6UQZ5oQg8XA)
+- **Known Issues**: Check the [Known Issues](../../knownissues/) page
+- **GitHub Issues**: Report bugs on [GitHub](https://github.com/Fl1ckfps/AspectUtils/issues)
 
 ## Quick reference card
 

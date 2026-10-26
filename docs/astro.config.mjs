@@ -5,25 +5,25 @@ import { siteLinks } from './src/site-links.ts';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://winutil.christitus.com/',
+	site: 'https://fl1ckfps.github.io',
+	base: '/AspectUtils',
 	integrations: [
 		starlight({
-			title: 'WinUtil',
-			description: "Chris Titus Tech's Windows Utility — install apps, apply tweaks, run fixes, and manage Windows from one place.",
+			title: 'A$PECT UTILS',
+			description: 'A$PECT UTILS — install apps, apply tweaks, run fixes, and manage Windows from one place.',
 			logo: {
 				src: './src/assets/branding/navlogo.png',
 				replacesTitle: true,
 			},
 			favicon: '/favicon.svg',
 			head: [
-				{ tag: 'meta', attrs: { property: 'og:image', content: 'https://winutil.christitus.com/social-preview.png' } },
+				{ tag: 'meta', attrs: { property: 'og:image', content: 'https://fl1ckfps.github.io/AspectUtils/social-preview.png' } },
 				{ tag: 'meta', attrs: { property: 'og:image:width', content: '1200' } },
 				{ tag: 'meta', attrs: { property: 'og:image:height', content: '630' } },
-				{ tag: 'meta', attrs: { name: 'twitter:image', content: 'https://winutil.christitus.com/social-preview.png' } },
+				{ tag: 'meta', attrs: { name: 'twitter:image', content: 'https://fl1ckfps.github.io/AspectUtils/social-preview.png' } },
 			],
 			social: [
-				{ icon: 'github', label: 'GitHub', href: 'https://github.com/ChrisTitusTech/winutil' },
-				{ icon: 'discord', label: 'Discord', href: 'https://discord.gg/RUbZUZyByQ' },
+				{ icon: 'github', label: 'GitHub', href: siteLinks.repo.href },
 			],
 			// Global theme overrides (colors, fonts, landing-page section styles).
 			customCss: ['./src/styles/theme.css'],
@@ -35,7 +35,7 @@ export default defineConfig({
 				Footer: './src/components/Footer.astro',
 			},
 			editLink: {
-				baseUrl: 'https://github.com/ChrisTitusTech/winutil/edit/main/docs/',
+				baseUrl: 'https://github.com/Fl1ckfps/AspectUtils/edit/main/docs/',
 			},
 			// Sidebar groups, top to bottom: User Guide, Code Reference, Help.
 			sidebar: [
@@ -67,10 +67,10 @@ export default defineConfig({
 						{ label: 'FAQ', slug: 'faq' },
 						{ label: 'Known Issues', slug: 'knownissues' },
 						{ label: 'Contributing', slug: 'contributing' },
-						{ label: siteLinks.forums.label, link: siteLinks.forums.href, attrs: { target: '_blank', rel: 'noreferrer' } },
+						{ label: siteLinks.issues.label, link: siteLinks.issues.href, attrs: { target: '_blank', rel: 'noreferrer' } },
 					],
 				},
-				{ label: siteLinks.store.label, link: siteLinks.store.href, attrs: { target: '_blank', rel: 'noreferrer' } },
+				{ label: siteLinks.repo.label, link: siteLinks.repo.href, attrs: { target: '_blank', rel: 'noreferrer' } },
 			],
 		}),
 	],

@@ -1,14 +1,14 @@
-/* WinUtil docs theme: grayscale palette with WinUtil blue (#0567ff) as the single accent, dark by default. */
+/* A$PECT UTILS docs theme: grayscale palette with mint (#4ADE80) as the single accent, dark by default. */
 @import './fonts.css';
 
 :root {
 	--sl-font: 'Geist', var(--sl-font-system);
 	--sl-font-mono: 'JetBrains Mono Variable', var(--sl-font-system-mono);
 
-	/* WinUtil brand blue, matching the app logo (#0567ff). */
-	--wu-accent-h: 216;
-	--wu-accent: hsl(var(--wu-accent-h) 100% 51%);
-	--wu-accent-dim: hsl(var(--wu-accent-h) 90% 45%);
+	/* A$PECT UTILS brand mint, matching the app logo (#4ADE80). */
+	--wu-accent-h: 142;
+	--wu-accent: hsl(var(--wu-accent-h) 69% 58%);
+	--wu-accent-dim: hsl(var(--wu-accent-h) 76% 36%);
 
 	--wu-radius-sm: 0.5rem;
 	--wu-radius: 0.625rem;
@@ -20,7 +20,7 @@
 ::backdrop {
 	--sl-color-accent-low: hsl(var(--wu-accent-h) 60% 18%);
 	--sl-color-accent: var(--wu-accent);
-	--sl-color-accent-high: hsl(var(--wu-accent-h) 100% 85%);
+	--sl-color-accent-high: hsl(var(--wu-accent-h) 69% 85%);
 
 	--sl-color-white: #fafafa;
 	--sl-color-gray-1: #ededed;
@@ -43,9 +43,9 @@
 /* Light mode. */
 :root[data-theme='light'],
 [data-theme='light'] ::backdrop {
-	--sl-color-accent-low: hsl(var(--wu-accent-h) 90% 92%);
+	--sl-color-accent-low: hsl(var(--wu-accent-h) 70% 92%);
 	--sl-color-accent: var(--wu-accent-dim);
-	--sl-color-accent-high: hsl(var(--wu-accent-h) 80% 34%);
+	--sl-color-accent-high: hsl(var(--wu-accent-h) 76% 30%);
 
 	--sl-color-white: #0a0a0a;
 	--sl-color-gray-1: #171717;
@@ -235,7 +235,7 @@ body {
 	max-width: none;
 }
 
-/* Shields.io / dcbadge release, download, and Discord badges. */
+/* Shields.io release and download badges. */
 .wu-badges {
 	display: flex;
 	flex-wrap: wrap;
@@ -424,7 +424,7 @@ body {
 	height: 1.5rem;
 	margin-top: 0.15rem;
 	border-radius: 999px;
-	background: hsl(var(--wu-accent-h) 100% 51% / 0.12);
+	background: hsl(var(--wu-accent-h) 69% 58% / 0.12);
 }
 .wu-benefit-list .wu-check svg {
 	width: 0.85rem;

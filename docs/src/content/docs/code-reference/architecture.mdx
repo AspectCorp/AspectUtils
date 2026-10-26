@@ -1,17 +1,28 @@
 ---
 title: Architecture & Design
-description: How WinUtil's GUI, functions, and JSON configuration files fit together, plus a deep dive into the Win11 Creator subsystem.
+description: How A$PECT UTILS' PowerShell and desktop apps share the JSON configuration, plus a deep dive into the Win11 Creator subsystem.
 ---
 
 ## Overview
 
-WinUtil is a PowerShell-based Windows utility with a WPF (Windows Presentation Foundation) GUI. This document explains the architecture, code structure, and how different components work together.
+A$PECT UTILS is a Windows setup toolkit with two front ends: a PowerShell app with a WPF (Windows Presentation Foundation) GUI, and a native .NET desktop app. Both read the same JSON configuration files. This document explains the PowerShell architecture, code structure, and how the components work together; the desktop app is covered in [Desktop app](#desktop-app).
+
+## Desktop app
+
+The desktop app in `desktop/` is a .NET 8 WPF application with no NuGet dependencies. It targets `net8.0-windows`, requests administrator rights through `app.manifest`, and copies `config/*.json` plus its helper scripts into the build output.
+
+- `Services/ConfigService.cs` loads the shared JSON catalogs and tolerates control characters inside upstream script strings.
+- `Services/TweakEngine.cs` applies tweaks and records registry snapshots in `%LocalAppData%\AspectUtils\state\applied-tweaks.json` so changes can be undone.
+- `Services/PackageManagerService.cs` drives WinGet and Chocolatey for install, upgrade, and uninstall.
+- `Services/FeatureService.cs` and the scripts under `desktop/Scripts/` cover Windows features, fixes, and update profiles.
+- `Views/` contains the seven pages: Dashboard, Install apps, Tweaks, Fixes, Features, Updates, and Activity log.
+- AppX package management and Win11 Creator remain PowerShell-only in the current version.
 
 ## High-Level Architecture
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│                    Winutil GUI                      │
+│                  A$PECT UTILS GUI                   │
 │              (WPF XAML Interface)                   │
 └──────────────────┬──────────────────────────────────┘
                    │
@@ -40,9 +51,9 @@ WinUtil is a PowerShell-based Windows utility with a WPF (Windows Presentation F
 ### Directory Layout
 
 ```
-winutil/
+AspectUtils/
 ├── Compile.ps1                 # Build script that combines all files
-├── winutil.ps1                 # Compiled output (generated)
+├── AspectUtils.ps1             # Compiled output (generated)
 ├── scripts/
 │   ├── main.ps1               # Entry point and GUI initialization
 │   └── start.ps1              # Startup logic
@@ -54,27 +65,32 @@ winutil/
 │   ├── public/                # User-facing functions
 │   │   ├── Initialize-WPFUI.ps1
 │   │   └── ...
-├── config/                    # JSON configuration files
+├── config/                    # Shared JSON configuration files
 │   ├── applications.json      # Application definitions
 │   ├── tweaks.json           # Tweak definitions
 │   ├── feature.json          # Windows feature definitions
 │   └── preset.json           # Preset configurations
 ├── xaml/
 │   └── inputXML.xaml         # GUI layout definition
+├── desktop/                   # Native WPF desktop app (.NET 8)
+│   ├── AspectUtils.Desktop.csproj
+│   ├── Services/              # Config, tweaks, packages, undo
+│   ├── Views/                 # Install, Tweaks, Fixes, Features, Updates, Log
+│   └── Scripts/               # Fix and update helper scripts
 └── docs/                     # Documentation
 ```
 
 ### Key Components
 
 #### 1. Compile.ps1
-**Purpose**: Combines all separate script files into a single `winutil.ps1` for distribution.
+**Purpose**: Combines all separate script files into a single `AspectUtils.ps1` for distribution.
 
 **Process**:
 1. Reads all function files from `/functions/`
 2. Includes configuration JSON files
 3. Embeds XAML GUI definition
 4. Combines into a single script
-5. Outputs `winutil.ps1`
+5. Outputs `AspectUtils.ps1`
 
 **Why**: Makes distribution easier (single file) and improves load time.
 
@@ -534,7 +550,7 @@ Write-WinUtilLog -Level "ERROR" -Component "Install" -Message "winget install fa
 ```
 
 Entries and console diagnostics go to the same
-`%LocalAppData%\winutil\logs\winutil_<timestamp>.log` session file. While `Start-Transcript`
+`%LocalAppData%\AspectUtils\logs\aspectutils_<timestamp>.log` session file. While `Start-Transcript`
 owns that file, `Write-WinUtilLog` writes through the host so the transcript captures the entry
 without a competing direct file write.
 
@@ -664,14 +680,14 @@ Invoke-Pester -Path 'pester/*.Tests.ps1' -Output Detailed -CI
 .\Compile.ps1
 ```
 
-Outputs `winutil.ps1` in the root directory.
+Outputs `AspectUtils.ps1` in the root directory.
 
 ### Production Release
 
 1. Tag release in Git
-2. GitHub Actions builds and uploads `winutil.ps1`
+2. GitHub Actions builds and uploads `AspectUtils.ps1`
 3. Release appears on GitHub Releases
-4. Users download via `irm christitus.com/win`
+4. Users download the release asset or run it from the repository
 
 ## Dependencies
 
@@ -727,18 +743,18 @@ Outputs `winutil.ps1` in the root directory.
 
 ## Related Documentation
 
-- [Contributing Guide](/contributing/) - How to contribute code
-- [User Guide](/guides/) - End-user documentation
-- [Win11 Creator Guide](/guides/win11creator/) - Building customized Windows 11 ISOs
-- [FAQ](/faq/) - Common questions
+- [Contributing Guide](../../contributing/) - How to contribute code
+- [User Guide](../../guides/) - End-user documentation
+- [Win11 Creator Guide](../../guides/win11creator/) - Building customized Windows 11 ISOs
+- [FAQ](../../faq/) - Common questions
 
 ## Additional Resources
 
-- **GitHub Repository**: [ChrisTitusTech/winutil](https://github.com/ChrisTitusTech/winutil)
+- **GitHub Repository**: [Fl1ckfps/AspectUtils](https://github.com/Fl1ckfps/AspectUtils)
 - **PowerShell Docs**: [Microsoft Docs](https://docs.microsoft.com/powershell/)
 - **WPF Guide**: [WPF Documentation](https://docs.microsoft.com/dotnet/desktop/wpf/)
 
 ---
 
 **Last Updated**: January 2026
-**Maintainers**: Chris Titus Tech and contributors
+**Maintainers**: A$PECT UTILS contributors, based on WinUtil by Chris Titus Tech (MIT)

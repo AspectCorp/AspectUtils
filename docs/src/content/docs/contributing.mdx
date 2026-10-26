@@ -1,25 +1,27 @@
 ---
 title: Contributing
-description: How to test, report issues, and contribute code to WinUtil.
+description: How to test, report issues, and contribute code to A$PECT UTILS.
 ---
 
 ## Testing
 
-* Test the latest changes to WinUtil by running the pre-release and reporting issues you are encountering to help us continually improve WinUtil!
+* Test the latest changes to A$PECT UTILS by running a pre-release and reporting any issues you encounter.
 
 #### Run the latest pre-release
 
+Download the newest pre-release from [GitHub Releases](https://github.com/Fl1ckfps/AspectUtils/releases), then run the downloaded script from an elevated PowerShell session:
+
 ```ps1
-irm https://christitus.com/windev | iex
+.\AspectUtils.ps1
 ```
 
 :::caution
-**Keep in mind** That this is a pre-release and should be treated as such. It exists for developers to test the utility and report or fix bugs before they get added to the stable release. Don't use it in production!
+Pre-release builds contain changes that have not reached a stable release. Use them for testing only, not in production.
 :::
 
 ## Issues
 
-* If you encounter any challenges or problems with the script, I kindly request that you submit them via the "Issues" tab on the GitHub repository. By filling out the provided template, you can provide specific details about the issue, allowing me (and others in the community) to promptly address any bugs or consider feature requests.
+* If you encounter any problems, submit them via the [Issues](https://github.com/Fl1ckfps/AspectUtils/issues) tab on the GitHub repository. Filling out the provided template with specific details helps maintainers and contributors address bugs and consider feature requests.
 
 ## Contribute Code
 
@@ -32,7 +34,7 @@ Do not use a code formatter, make massive amounts of line changes, or make multi
 :::
 
 :::caution
-Do not open a pull request that adds support for other languages to WinUtil for now, until we decide how we want to move forward with language support.
+Do not open a pull request that adds support for other languages for now, until the project decides how to handle language support.
 :::
 
 * When creating pull requests, it is essential to thoroughly document all changes made. This includes, but is not limited to, documenting any additions made to the `tweaks` section and corresponding `undo tweak`, so users are able to remove the newly added tweaks if necessary, and comprehensive documentation is required for all code changes. Document your changes and briefly explain why you made your changes in your Pull Request Description. Failure to adhere to this format may result in the denial of the pull request. Additionally, any code lacking sufficient documentation may also be denied.
@@ -75,21 +77,21 @@ This is a diagram to guide you through the process. It may vary depending on the
 :::
 
 ### Fork the Repo
-* Fork the WinUtil Repository [here](https://github.com/ChrisTitusTech/winutil) to create a copy that will be available in your repository list.
+* Fork the A$PECT UTILS repository [here](https://github.com/Fl1ckfps/AspectUtils) to create a copy that will be available in your repository list.
 
 ![Fork Image](../../assets/contributing/Fork-Button-Dark.png)
 
 ### Clone the Fork
 :::tip
-While you can make your changes directly through the Web, we recommend cloning the repo to your device using the application GitHub Desktop (available in WinUtil) to test your fork easily.
+While you can make your changes directly through the web, we recommend cloning the repo to your device using GitHub Desktop (available from the Install tab) to test your fork easily.
 :::
 
 * Install GitHub Desktop if it is not already installed.
-* Log in using the same GitHub account you used to fork WinUtil.
+* Log in using the same GitHub account you used to fork A$PECT UTILS.
 * Choose the fork under "Your Repositories" and press "clone `{repo name}`"
 * Create a new branch and name it something relatable to your changes.
 
-* Now you can modify WinUtil to your liking using your preferred text editor.
+* Now you can modify A$PECT UTILS to your liking using your preferred text editor.
 
 
 ### Testing your changes
@@ -98,15 +100,18 @@ While you can make your changes directly through the Web, we recommend cloning t
 
 * Change the directory where you are running the commands to the forked project.
 * `cd {path to the folder with the compile.ps1}`
-* Run the following command to compile and run WinUtil:
-* `.\Compile.ps1 -run`
+* Run the following command to compile and run the PowerShell app:
+* `.\Compile.ps1 -Run`
+
+* To build the desktop app:
+* `dotnet build desktop/AspectUtils.Desktop.csproj -c Debug`
 
 ![Compile](../../assets/contributing/Compile.png)
 
 * After seeing that your changes work properly, feel free to commit the changes to the repository and make a PR. For help on that, follow the documentation below.
 
 ### Committing the changes
-* Before committing your changes, please discard changes made to the `winutil.ps1` file, like the following:
+* Before committing your changes, please discard changes made to the generated `AspectUtils.ps1` file, like the following:
 
 ![Push Commit Image](../../assets/contributing/Discard-GHD.png)
 
@@ -119,6 +124,6 @@ While you can make your changes directly through the Web, we recommend cloning t
 ![Push Commit Image](../../assets/contributing/Push-Commit.png)
 
 ### Making a PR
-* To make a PR on your repo under a new branch linking to the main branch, a button will show and say Preview and Create pull request. Click that button and fill in all the information that is provided on the template. Once all the information is filled in correctly, check your PR to make sure there is no WinUtil.ps1 file attached to the PR. Once everything is good, make the PR and wait for Chris (the maintainer) to accept or deny your PR. Once it is accepted by Chris, you will be able to see your changes in the "/windev" build.
-* If you do not see your feature in the main "/win" build, that is fine. All new changes go into the /windev build to make sure everything is working OK before going fully public.
-* Congratulations! You just submitted your first PR. Thank you so much for contributing to WinUtil.
+* To make a PR on your repo under a new branch linking to the main branch, a button will show and say Preview and Create pull request. Click that button and fill in all the information that is provided on the template. Once all the information is filled in correctly, check your PR to make sure there is no AspectUtils.ps1 file attached to the PR. Once everything is good, make the PR and wait for a maintainer to review it.
+* Approved changes can be published as a pre-release before they reach the stable release, so they can be tested before going fully public.
+* Congratulations! You just submitted your first PR. Thank you for contributing to A$PECT UTILS.
