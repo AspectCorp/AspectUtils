@@ -116,7 +116,8 @@ jobs:
 
       - name: Install Inno Setup
         run: |
-          Invoke-WebRequest -Uri 'https://jrsoftware.org/download.php/is.exe' -OutFile inno-setup.exe
+          $url = 'https://files.jrsoftware.org/is/6/innosetup-6.4.3.exe'
+          Invoke-WebRequest -Uri $url -OutFile inno-setup.exe
           Start-Process -FilePath .\inno-setup.exe -ArgumentList '/SILENT','/SUPPRESSMSGBOXES','/NORESTART' -Wait
 
       - name: Build installer
