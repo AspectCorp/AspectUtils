@@ -144,6 +144,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: aspectutils-desktop
+          path: .
 
       - name: Set version from build job
         run: echo "VERSION=${{ needs.build-runspace.outputs.version }}" >> $GITHUB_ENV
