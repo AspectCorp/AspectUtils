@@ -168,7 +168,7 @@ if (`$launch.Headless) { `$env:WINUTIL_HEADLESS_CHILD = '1' }
 if (`$launch.ScriptPath) {
     & `$launch.ScriptPath @invokeParameters
 } else {
-    `$remoteScript = [ScriptBlock]::Create((Invoke-RestMethod 'https://github.com/Fl1ckfps/AspectUtils/releases/latest/download/AspectUtils.ps1'))
+    `$remoteScript = [ScriptBlock]::Create((Invoke-RestMethod 'https://github.com/flickfpz/AspectUtils/releases/latest/download/AspectUtils.ps1'))
     & `$remoteScript @invokeParameters
 }
 "@

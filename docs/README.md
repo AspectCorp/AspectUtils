@@ -2,7 +2,7 @@
 
 [![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
 
-Documentation site for [A$PECT UTILS](https://github.com/Fl1ckfps/AspectUtils), built with [Astro](https://astro.build) and [Starlight](https://starlight.astro.build). It is set up for GitHub Pages at [fl1ckfps.github.io/AspectUtils](https://fl1ckfps.github.io/AspectUtils/). Change `site` and `base` in `astro.config.mjs` if you host it elsewhere.
+Documentation site for [A$PECT UTILS](https://github.com/flickfpz/AspectUtils), built with [Astro](https://astro.build) and [Starlight](https://starlight.astro.build). It is set up for GitHub Pages at [fl1ckfps.github.io/AspectUtils](https://fl1ckfps.github.io/AspectUtils/). Change `site` and `base` in `astro.config.mjs` if you host it elsewhere.
 
 ## 🚀 Project Structure
 
