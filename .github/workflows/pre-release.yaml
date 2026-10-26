@@ -187,7 +187,7 @@ jobs:
           files: |
             ./AspectUtils.ps1
             ./AspectUtils-Desktop.zip
-            ./AspectUtils-Setup.exe
+            ./artifacts/AspectUtils-Setup.exe
           prerelease: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
