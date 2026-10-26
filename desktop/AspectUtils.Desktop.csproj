@@ -24,6 +24,7 @@
     <Content Include="Scripts\*.ps1" CopyToOutputDirectory="PreserveNewest" />
     <Resource Include="Assets\AspectUtils.png" />
     <Resource Include="Assets\AspectUtils.ico" />
+    <SplashScreen Include="Assets\Splash.png" />
   </ItemGroup>
 
 </Project>
