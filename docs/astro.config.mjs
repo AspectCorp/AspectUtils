@@ -5,8 +5,7 @@ import { siteLinks } from './src/site-links.ts';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://fl1ckfps.github.io',
-	base: '/AspectUtils',
+	site: 'https://aspectutils.pages.dev',
 	integrations: [
 		starlight({
 			title: 'A$PECT UTILS',

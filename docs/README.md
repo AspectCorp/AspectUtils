@@ -2,7 +2,7 @@
 
 [![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
 
-Documentation site for [A$PECT UTILS](https://github.com/flickfpz/AspectUtils), built with [Astro](https://astro.build) and [Starlight](https://starlight.astro.build). It is set up for GitHub Pages at [fl1ckfps.github.io/AspectUtils](https://fl1ckfps.github.io/AspectUtils/). Change `site` and `base` in `astro.config.mjs` if you host it elsewhere.
+Documentation site for [A$PECT UTILS](https://github.com/flickfpz/AspectUtils), built with [Astro](https://astro.build) and [Starlight](https://starlight.astro.build). It is set up for Cloudflare Pages at [aspectutils.pages.dev](https://aspectutils.pages.dev/). Change `site` in `astro.config.mjs` if you host it elsewhere.
 
 ## 🚀 Project Structure
 
@@ -55,6 +55,16 @@ docker compose up winutil-astro
 ```
 
 The first `docker compose up` (or any command before an image exists) builds the image and runs `npm install` from scratch, which can take a few minutes. Subsequent runs reuse the cached image and start almost immediately.
+
+## Cloudflare Pages deployment
+
+1. Create a Cloudflare Pages project connected to this repository.
+2. Set the build command to `npm run build` and the output directory to `dist`.
+3. Set the root directory to `docs/`.
+4. Add environment variables if needed (none required for the default build).
+5. Deploy. Cloudflare Pages will rebuild on every push to `main`.
+
+The Astro site is fully static, so no adapter is required.
 
 ## 👀 Want to learn more?
 
