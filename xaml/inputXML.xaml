@@ -2262,7 +2262,7 @@
             <TabItem Header="Activation" Visibility="Collapsed" Name="WPFTab7">
                 <Grid Margin="10">
                     <StackPanel VerticalAlignment="Top" MaxWidth="720">
-                        <TextBlock Text="Windows and Office activation" Style="{StaticResource PageTitle}" Margin="0,0,0,8"/>
+                        <TextBlock Text="Windows and Office activation" FontSize="24" FontWeight="Bold" Margin="0,0,0,8" Foreground="{DynamicResource MainForegroundColor}"/>
                         <TextBlock Text="This launches Microsoft Activation Scripts (MAS) in an elevated PowerShell window. Review the script before running it on a production machine." TextWrapping="Wrap" Margin="0,0,0,16" Foreground="{DynamicResource MainForegroundColor}"/>
                         <Button Name="WPFActivateMAS" Content="Activate Windows &amp; Office (MAS)" Margin="5" Width="260" Height="{DynamicResource ButtonHeight}" />
                     </StackPanel>
