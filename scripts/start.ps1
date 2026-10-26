@@ -1,7 +1,6 @@
 <#
 .NOTES
     Project        : A$PECT UTILS
-    Based on       : WinUtil by Chris Titus Tech and contributors (MIT)
     Version        : #{replaceme}
 #>
 

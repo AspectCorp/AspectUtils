@@ -2,7 +2,6 @@ Write-Host @'
 ==============================================================
   A$PECT UTILS  |  Windows setup, minus the hassle
   Install  -  Tweaks  -  Fixes  -  Updates
-  Based on WinUtil by Chris Titus Tech and contributors (MIT)
 ==============================================================
 '@
 

@@ -86,4 +86,4 @@ Deleting the undo manifest does not undo applied tweaks; it only removes the des
 
 ## License and attribution
 
-MIT. Based on WinUtil by Chris Titus Tech and contributors. See the repository's `LICENSE` and `NOTICE.md`.
+MIT. See the repository's `LICENSE`.

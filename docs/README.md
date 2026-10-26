@@ -60,6 +60,6 @@ The first `docker compose up` (or any command before an image exists) builds the
 
 Check out [Starlight's docs](https://starlight.astro.build/), read [the Astro documentation](https://docs.astro.build), or jump into the [Astro Discord server](https://astro.build/chat).
 
-## Attribution
+## License
 
-The documentation and application are based on [WinUtil](https://github.com/ChrisTitusTech/winutil) by Chris Titus Tech and contributors, used under the MIT license. See the repository's `NOTICE.md` and `LICENSE` files.
+MIT. See the repository's `LICENSE` file.
