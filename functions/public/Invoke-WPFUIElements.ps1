@@ -384,7 +384,7 @@ function Invoke-WPFUIElements {
                                         $this.SelectedItem = @($this.Items) | Where-Object Content -EQ $previousState | Select-Object -First 1
                                         [System.Windows.MessageBox]::Show(
                                             $applyError,
-                                            "WinUtil",
+                                            "A`$PECT UTILS",
                                             [System.Windows.MessageBoxButton]::OK,
                                             [System.Windows.MessageBoxImage]::Warning
                                         ) | Out-Null

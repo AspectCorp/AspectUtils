@@ -101,7 +101,7 @@ Describe "Write-WinUtilLog" {
         Write-WinUtilLog -Component "Test" -Message "first fallback entry"
         Write-WinUtilLog -Component "Test" -Message "second fallback entry"
 
-        $logFiles = @(Get-ChildItem -Path (Join-Path $script:testRoot "logs") -Filter "winutil_*.log")
+        $logFiles = @(Get-ChildItem -Path (Join-Path $script:testRoot "logs") -Filter "aspectutils_*.log")
         $logFiles.Count | Should -Be 1
         Test-Path -Path (Join-Path $script:testRoot "winutil.log") | Should -BeFalse
 

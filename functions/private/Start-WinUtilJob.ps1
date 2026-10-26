@@ -47,7 +47,7 @@ function Start-WinUtilJob {
     )
 
     if ($sync.ShuttingDown -or $sync.FinishInConsole) {
-        Write-WinUtilLog -Level "WARN" -Component $Name -Message "Refused to start $Name, WinUtil is closing."
+        Write-WinUtilLog -Level "WARN" -Component $Name -Message "Refused to start $Name, A`$PECT UTILS is closing."
         return $null
     }
 
@@ -78,7 +78,7 @@ function Start-WinUtilJob {
     }
 
     if ($blockedBy) {
-        Show-WinUtilMessage -Message "$blockedBy is still running. Wait for it to finish before starting another action." -Title "WinUtil" -Button "OK" -Icon "Warning" | Out-Null
+        Show-WinUtilMessage -Message "$blockedBy is still running. Wait for it to finish before starting another action." -Title "A`$PECT UTILS" -Button "OK" -Icon "Warning" | Out-Null
         return $null
     }
 

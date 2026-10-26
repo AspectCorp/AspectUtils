@@ -261,9 +261,9 @@ Function Install-WinUtilProgramWinget {
         } elseif ($exitCode -eq $adminContextProhibited) {
             $outcome = "Skipped"
             $detail = switch ($Action) {
-                "Install" { "already installed for the current user; elevated WinUtil cannot update it" }
-                "Upgrade" { "not upgraded; installed for the current user and elevated WinUtil cannot modify it" }
-                "Uninstall" { "remains installed for the current user; elevated WinUtil cannot uninstall it" }
+                "Install" { "already installed for the current user; elevated A`$PECT UTILS cannot update it" }
+                "Upgrade" { "not upgraded; installed for the current user and elevated A`$PECT UTILS cannot modify it" }
+                "Uninstall" { "remains installed for the current user; elevated A`$PECT UTILS cannot uninstall it" }
             }
         } else {
             $outcome = "Failed"

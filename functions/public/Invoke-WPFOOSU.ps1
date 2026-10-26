@@ -10,8 +10,10 @@ function Invoke-WPFOOSU {
             param($percent, $totalBytes)
 
             # The server may omit Content-Length, in which case only the percentage is known
-            $progress = if ($totalBytes -gt 0) {
-                "$percent% of $([math]::Round($totalBytes / 1MB)) MB"
+            $totalBytesValue = 0L
+            try { $totalBytesValue = [long]$totalBytes } catch { $totalBytesValue = 0L }
+            $progress = if ($totalBytesValue -gt 0) {
+                "$percent% of $([math]::Round($totalBytesValue / 1MB)) MB"
             } else {
                 "$percent%"
             }
@@ -23,3 +25,4 @@ function Invoke-WPFOOSU {
         Write-WinUtilLog -Component "OOSU" -Message "O&O ShutUp10++ launched."
     }
 }
+

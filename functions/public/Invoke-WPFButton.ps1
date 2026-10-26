@@ -99,7 +99,7 @@ function Get-WinUtilButtonLabel {
 
     $fallback = ($Button -replace '^WPF', '')
     if ([string]::IsNullOrWhiteSpace($fallback)) {
-        return "WinUtil"
+        return "A`$PECT UTILS"
     }
     return $fallback
 }
@@ -197,6 +197,7 @@ function Invoke-WPFButtonAction {
         # Closing may be declined, or leave a job running that outlives the window, so the
         # goodbye belongs at the point the process actually ends rather than here
         "WPFCloseButton" {$sync.Form.Close()}
+        "WPFActivateMAS" { Invoke-WPFActivateMAS }
         "WPFMinimizeButton" {[Windows.SystemCommands]::MinimizeWindow($sync.Form)}
         "WPFMaximizeButton" {
             if ($sync.Form.WindowState -eq [Windows.WindowState]::Normal) {

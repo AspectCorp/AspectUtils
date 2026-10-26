@@ -11,7 +11,7 @@
         Height="Auto"
         MinWidth="800"
         MinHeight="600"
-        Title="WinUtil">
+        Title="A$PECT UTILS">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0" CornerRadius="10" UseAeroCaptionButtons="False"/>
     </WindowChrome.WindowChrome>
@@ -1097,6 +1097,14 @@
                         </TextBlock>
                     </ToggleButton.Content>
                 </ToggleButton>
+                <ToggleButton Style="{StaticResource TabToggleButton}" Margin="0,0,5,0" Height="{DynamicResource TabButtonHeight}" Width="Auto" MinWidth="{DynamicResource TabButtonWidth}"
+                    Background="{DynamicResource ButtonConfigBackgroundColor}" Foreground="{DynamicResource ButtonConfigForegroundColor}" FontWeight="Bold" Name="WPFTab7BT">
+                    <ToggleButton.Content>
+                        <TextBlock FontSize="{DynamicResource TabButtonFontSize}" Background="Transparent" Foreground="{DynamicResource ButtonConfigForegroundColor}">
+                            <Underline>A</Underline>ctivation
+                        </TextBlock>
+                    </ToggleButton.Content>
+                </ToggleButton>
             </StackPanel>
 
             <!-- Search Bar and Action Buttons -->
@@ -1150,7 +1158,7 @@
                     Margin="0,0,2,0"
                     FontFamily="Segoe MDL2 Assets"
                     Content="N/A"
-                    ToolTip="Change the WinUtil UI Theme"
+                    ToolTip="Change the A$PECT UTILS UI Theme"
                     AutomationProperties.Name="Theme"
                 />
                     <Popup Name="ThemePopup"
@@ -1470,7 +1478,7 @@
                                        FontSize="24"
                                        FontWeight="Bold"
                                        Foreground="{DynamicResource MainForegroundColor}"/>
-                            <TextBlock Text="Choose how Windows receives updates. Each profile replaces the Windows Update settings managed by WinUtil."
+                            <TextBlock Text="Choose how Windows receives updates. Each profile replaces the Windows Update settings managed by A$PECT UTILS."
                                        Margin="0,6,0,0"
                                        FontSize="13"
                                        TextWrapping="Wrap"
@@ -1537,7 +1545,7 @@
                                                    Foreground="{DynamicResource MainForegroundColor}"/>
                                     </StackPanel>
                                     <StackPanel Grid.Row="1">
-                                        <TextBlock Text="- Removes Windows Update policies applied by WinUtil" TextWrapping="Wrap" Margin="0,0,0,7" Foreground="{DynamicResource MainForegroundColor}"/>
+                                        <TextBlock Text="- Removes Windows Update policies applied by A$PECT UTILS" TextWrapping="Wrap" Margin="0,0,0,7" Foreground="{DynamicResource MainForegroundColor}"/>
                                         <TextBlock Text="- Restores update service startup settings" TextWrapping="Wrap" Margin="0,0,0,7" Foreground="{DynamicResource MainForegroundColor}"/>
                                         <TextBlock Text="- Re-enables update scheduled tasks" TextWrapping="Wrap" Margin="0,0,0,12" Foreground="{DynamicResource MainForegroundColor}"/>
                                         <TextBlock Text="Use this to undo the Recommended or Disable profile."
@@ -1595,7 +1603,7 @@
                         </UniformGrid>
 
                         <Border Grid.Row="2" Style="{StaticResource BorderStyle}" Margin="8,14,8,8" Padding="12">
-                            <TextBlock Text="Changes apply system-wide. Restart Windows after switching profiles. Use Restore Defaults to undo WinUtil update policies."
+                            <TextBlock Text="Changes apply system-wide. Restart Windows after switching profiles. Use Restore Defaults to undo A$PECT UTILS update policies."
                                        TextWrapping="Wrap"
                                        HorizontalAlignment="Center"
                                        Foreground="{DynamicResource MainForegroundColor}"/>
@@ -2249,6 +2257,15 @@
                             <Button Name="WPFRemoveSelectedAppx" Content="Remove Selected" Margin="5" Width="{DynamicResource ButtonWidth}" Height="{DynamicResource ButtonHeight}"/>
                         </WrapPanel>
                     </Border>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Activation" Visibility="Collapsed" Name="WPFTab7">
+                <Grid Margin="10">
+                    <StackPanel VerticalAlignment="Top" MaxWidth="720">
+                        <TextBlock Text="Windows and Office activation" Style="{StaticResource PageTitle}" Margin="0,0,0,8"/>
+                        <TextBlock Text="This launches Microsoft Activation Scripts (MAS) in an elevated PowerShell window. Review the script before running it on a production machine." TextWrapping="Wrap" Margin="0,0,0,16" Foreground="{DynamicResource MainForegroundColor}"/>
+                        <Button Name="WPFActivateMAS" Content="Activate Windows &amp; Office (MAS)" Margin="5" Width="260" Height="{DynamicResource ButtonHeight}" />
+                    </StackPanel>
                 </Grid>
             </TabItem>
         </TabControl>

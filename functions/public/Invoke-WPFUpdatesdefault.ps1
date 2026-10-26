@@ -7,8 +7,8 @@ function Invoke-WPFUpdatesdefault {
     #>
     Write-WinUtilLog -Component "Updates" -Message "Resetting Windows Update settings to default."
 
-    Write-Host "Removing Windows Update settings managed by WinUtil..." -ForegroundColor Green
-    Write-WinUtilLog -Component "Updates" -Message "Removing Windows Update registry values managed by WinUtil."
+    Write-Host "Removing Windows Update settings managed by A`$PECT UTILS..." -ForegroundColor Green
+    Write-WinUtilLog -Component "Updates" -Message "Removing Windows Update registry values managed by A`$PECT UTILS."
 
     $registryValues = @(
         @{
@@ -46,7 +46,7 @@ function Invoke-WPFUpdatesdefault {
     $explorerPolicyPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer"
     $settingsPageVisibility = (Get-ItemProperty -Path $explorerPolicyPath -Name "SettingsPageVisibility" -ErrorAction SilentlyContinue).SettingsPageVisibility
     if ($settingsPageVisibility -eq "hide:windowsupdate") {
-        Write-Host "Removing WinUtil's legacy Windows Update page restriction..."
+        Write-Host "Removing the A`$PECT UTILS legacy Windows Update page restriction..."
         Write-WinUtilLog -Component "Updates" -Message "Removing the legacy Windows Update settings page restriction."
         Remove-ItemProperty -Path $explorerPolicyPath -Name "SettingsPageVisibility" -ErrorAction SilentlyContinue
     }

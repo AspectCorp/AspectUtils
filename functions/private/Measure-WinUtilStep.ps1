@@ -24,7 +24,7 @@ function Measure-WinUtilStep {
         [Parameter(Mandatory, Position = 1)]
         [scriptblock]$ScriptBlock,
 
-        [string]$Scope = "WinUtil"
+        [string]$Scope = "A`$PECT UTILS"
     )
 
     $isUIDiagnostic = $Scope -in @("UI", "Tab")

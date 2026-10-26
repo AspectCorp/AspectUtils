@@ -37,7 +37,7 @@ function Complete-WinUtilPackageRun {
 
     $adminContextSkipped = @($skipped | Where-Object { $_.ExitCode -eq -1978335107 })
     if ($adminContextSkipped.Count -gt 0) {
-        Write-Warning "$($adminContextSkipped.Count) package action(s) were skipped because elevated WinUtil cannot modify user-scoped installations."
+        Write-Warning "$($adminContextSkipped.Count) package action(s) were skipped because elevated A`$PECT UTILS cannot modify user-scoped installations."
     }
 
     if ($failed.Count -gt 0) {

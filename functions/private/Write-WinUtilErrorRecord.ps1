@@ -21,7 +21,7 @@ function Write-WinUtilErrorRecord {
         [Parameter(Mandatory)]
         $ErrorRecord,
 
-        [string]$Component = "WinUtil",
+        [string]$Component = "A`$PECT UTILS",
 
         [string]$Context,
 

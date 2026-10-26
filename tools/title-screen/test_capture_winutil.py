@@ -41,7 +41,7 @@ class WindowIdentityTests(unittest.TestCase):
     def test_accepts_the_versioned_winutil_wpf_window(self):
         self.assertTrue(
             capture_winutil._is_winutil_window(
-                "WinUtil 26.09.02", "HwndWrapper[PowerShell;123;abc]"
+                "A$PECT UTILS 26.09.02", "HwndWrapper[PowerShell;123;abc]"
             )
         )
 

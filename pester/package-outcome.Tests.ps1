@@ -48,7 +48,7 @@ Describe "Install-WinUtilProgramWinget outcomes" {
         $result = Install-WinUtilProgramWinget -Action Install -Programs @("Microsoft.Sysinternals.ProcessExplorer")
 
         $result.Outcome | Should -Be "Skipped"
-        $result.Detail | Should -Be "already installed for the current user; elevated WinUtil cannot update it"
+        $result.Detail | Should -Be "already installed for the current user; elevated A`$PECT UTILS cannot update it"
         Should -Invoke -CommandName Write-WinUtilLog -Times 1 -Exactly -ParameterFilter {
             $Level -eq "INFO" -and $Message -like "*skipped: Microsoft.Sysinternals.ProcessExplorer*"
         }
@@ -57,8 +57,8 @@ Describe "Install-WinUtilProgramWinget outcomes" {
 
     It "skips actions that elevated WinGet cannot perform on a per-user package" {
         $expectedDetails = @{
-            Upgrade = "not upgraded; installed for the current user and elevated WinUtil cannot modify it"
-            Uninstall = "remains installed for the current user; elevated WinUtil cannot uninstall it"
+            Upgrade = "not upgraded; installed for the current user and elevated A`$PECT UTILS cannot modify it"
+            Uninstall = "remains installed for the current user; elevated A`$PECT UTILS cannot uninstall it"
         }
 
         foreach ($action in $expectedDetails.Keys) {
@@ -192,7 +192,7 @@ Describe "Complete-WinUtilPackageRun" {
             $Message -eq "Install summary: 0 succeeded, 2 skipped, 0 failed"
         }
         Should -Invoke -CommandName Write-Warning -Times 1 -Exactly -ParameterFilter {
-            $Message -eq "1 package action(s) were skipped because elevated WinUtil cannot modify user-scoped installations."
+            $Message -eq "1 package action(s) were skipped because elevated A`$PECT UTILS cannot modify user-scoped installations."
         }
     }
 
@@ -209,7 +209,7 @@ Describe "Complete-WinUtilPackageRun" {
             $Message -eq "Uninstall summary: 0 succeeded, 2 skipped, 0 failed"
         }
         Should -Invoke -CommandName Write-Warning -Times 1 -Exactly -ParameterFilter {
-            $Message -eq "2 package action(s) were skipped because elevated WinUtil cannot modify user-scoped installations."
+            $Message -eq "2 package action(s) were skipped because elevated A`$PECT UTILS cannot modify user-scoped installations."
         }
     }
 

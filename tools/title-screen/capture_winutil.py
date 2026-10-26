@@ -178,9 +178,9 @@ def _window_class(hwnd) -> str:
 
 
 def _is_winutil_window(title: str, class_name: str) -> bool:
-    """Return whether a title and class identify the WinUtil WPF window."""
+    """Return whether a title and class identify the A$PECT UTILS WPF window."""
     return bool(
-        re.fullmatch(r"WinUtil \d{2}\.\d{2}\.\d{2}", title, re.IGNORECASE)
+        re.fullmatch(r"A\$PECT UTILS \d{2}\.\d{2}\.\d{2}", title, re.IGNORECASE)
         and "hwndwrapper" in class_name.lower()
     )
 

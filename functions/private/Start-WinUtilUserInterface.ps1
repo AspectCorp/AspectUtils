@@ -44,9 +44,9 @@ function Start-WinUtilUserInterface {
 
     if (-NOT ($readerOperationSuccessful)) {
         Write-Host "Failed to parse xaml content using Windows.Markup.XamlReader's Load Method." -ForegroundColor Red
-        Write-Host "Quitting WinUtil..." -ForegroundColor Red
-        Write-WinUtilLog -Level "ERROR" -Component "UI" -Message "Failed to parse the XAML content. WinUtil cannot start."
-        throw [System.InvalidOperationException]::new("Failed to parse the XAML content. WinUtil cannot start.", $readerFailure.Exception)
+        Write-Host "Quitting A`$PECT UTILS..." -ForegroundColor Red
+        Write-WinUtilLog -Level "ERROR" -Component "UI" -Message "Failed to parse the XAML content. A`$PECT UTILS cannot start."
+        throw [System.InvalidOperationException]::new("Failed to parse the XAML content. A`$PECT UTILS cannot start.", $readerFailure.Exception)
     }
 
     # Setup the Window to follow listen for windows Theme Change events and update the winutil theme

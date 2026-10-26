@@ -440,7 +440,7 @@ Describe "Start-WinUtilJob" {
         & $script:capturedRunspaceBody `
             -JobName "Install" `
             -JobLabel "Installing apps" `
-            -JobBody 'Complete-WinUtilPackageRun -Action "Install" -Results @([pscustomobject]@{ Package = "Microsoft.Sysinternals.ProcessExplorer"; Action = "Install"; ExitCode = -1978335107; Outcome = "Skipped"; Detail = "already installed for the current user; elevated WinUtil cannot update it" })' `
+            -JobBody 'Complete-WinUtilPackageRun -Action "Install" -Results @([pscustomobject]@{ Package = "Microsoft.Sysinternals.ProcessExplorer"; Action = "Install"; ExitCode = -1978335107; Outcome = "Skipped"; Detail = "already installed for the current user; elevated A`$PECT UTILS cannot update it" })' `
             -JobParameters @{} `
             -JobRestoresAppList $false `
             -JobToken $script:capturedRunspaceArgs["JobToken"]

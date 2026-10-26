@@ -53,7 +53,7 @@ Describe "Headless entry point" {
 
     It "recognizes explicit and positional direct file targets as process-owning" {
         . ([scriptblock]::Create($script:fileProcessFunction))
-        $winUtilPath = Join-Path $script:repoRoot "winutil.ps1"
+        $winUtilPath = Join-Path $script:repoRoot "AspectUtils.ps1"
         $wrapperPath = Join-Path $TestDrive "wrapper.ps1"
 
         Test-WinUtilOwnsFileProcess -ScriptPath $winUtilPath -CommandLineArgs @("pwsh.dll", "-File", $winUtilPath) | Should -BeTrue
@@ -145,14 +145,14 @@ exit 23
             [Security.Principal.WindowsBuiltInRole]::Administrator
         )
         if (-not $isAdmin) {
-            Set-ItResult -Skipped -Because "the compiled WinUtil process would open a UAC prompt"
+            Set-ItResult -Skipped -Because "the compiled AspectUtils process would open a UAC prompt"
             return
         }
 
         & (Join-Path $script:repoRoot "Compile.ps1")
-        $compiledPath = Join-Path $script:repoRoot "winutil.ps1"
+        $compiledPath = Join-Path $script:repoRoot "AspectUtils.ps1"
         $missingConfig = Join-Path $TestDrive "missing-config.json"
-        $wrapperPath = Join-Path $TestDrive "compiled-winutil-wrapper.ps1"
+        $wrapperPath = Join-Path $TestDrive "compiled-aspectutils-wrapper.ps1"
         @'
 param([string]$WinUtilPath, [string]$MissingConfig)
 $source = Get-Content -LiteralPath $WinUtilPath -Raw

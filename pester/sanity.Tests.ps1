@@ -102,9 +102,9 @@ Describe "PowerShell source sanity" {
     }
 }
 
-Describe "Compiled WinUtil sanity" {
+Describe "Compiled AspectUtils sanity" {
     BeforeAll {
-        $script:compiledPath = Join-Path $script:repoRoot "winutil.ps1"
+        $script:compiledPath = Join-Path $script:repoRoot "AspectUtils.ps1"
 
         Push-Location $script:repoRoot
         try {
@@ -114,15 +114,15 @@ Describe "Compiled WinUtil sanity" {
         }
     }
 
-    It "generates winutil.ps1" {
+    It "generates AspectUtils.ps1" {
         Test-Path -Path $script:compiledPath | Should -BeTrue
     }
 
-    It "parses compiled winutil.ps1 with the current PowerShell parser" {
+    It "parses compiled AspectUtils.ps1 with the current PowerShell parser" {
         Test-WinUtilParser -Path $script:compiledPath
     }
 
-    It "parses compiled winutil.ps1 with Windows PowerShell when available" {
+    It "parses compiled AspectUtils.ps1 with Windows PowerShell when available" {
         Invoke-WindowsPowerShellParser -Path $script:compiledPath
     }
 
