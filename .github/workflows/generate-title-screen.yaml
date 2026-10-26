@@ -1,4 +1,4 @@
-name: Generate WinUtil title screen
+name: Generate A$PECT UTILS title screen
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: winutil-title-screen
+  group: aspectutils-title-screen
   cancel-in-progress: true
 
 jobs:
@@ -93,14 +93,14 @@ jobs:
           Write-Host "Session ID: $sessionId"
           Write-Host "User: $env:USERNAME"
 
-      - name: Compile WinUtil
+      - name: Compile A$PECT UTILS
         run: |
           Set-ExecutionPolicy Bypass -Scope Process -Force
           ./Compile.ps1
 
-      - name: Launch WinUtil
+      - name: Launch A$PECT UTILS
         run: |
-          $scriptPath = Join-Path $env:GITHUB_WORKSPACE "winutil.ps1"
+          $scriptPath = Join-Path $env:GITHUB_WORKSPACE "AspectUtils.ps1"
           $command = "& '$scriptPath'"
           $bytes = [Text.Encoding]::Unicode.GetBytes($command)
           $encodedCommand = [Convert]::ToBase64String($bytes)
@@ -121,16 +121,16 @@ jobs:
               Start-Sleep -Seconds 2
               # A versioned title excludes the unversioned console host.
               $window = Get-Process |
-                  Where-Object { $_.MainWindowTitle -match '^WinUtil\s+\d' } |
+                  Where-Object { $_.MainWindowTitle -match '^A\$PECT UTILS\s+\d' } |
                   Select-Object -First 1
           } until ($window -or (Get-Date) -ge $deadline)
 
           if (-not $window) {
-              throw "WinUtil did not expose a window within 90 seconds."
+              throw "A`$PECT UTILS did not expose a window within 90 seconds."
           }
 
-          Write-Host "WinUtil HWND: $($window.MainWindowHandle)"
-          Write-Host "WinUtil title: $($window.MainWindowTitle)"
+          Write-Host "A`$PECT UTILS HWND: $($window.MainWindowHandle)"
+          Write-Host "A`$PECT UTILS title: $($window.MainWindowTitle)"
 
           # The exact HWND avoids desktop-enumeration ambiguity. Python validates
           # the title and WPF class before using it.
@@ -157,10 +157,10 @@ jobs:
           base: main
           branch: title-screen-update
           delete-branch: true
-          commit-message: "docs: update WinUtil title screen"
-          title: "docs: update WinUtil title screen"
+          commit-message: "docs: update A$PECT UTILS title screen"
+          title: "docs: update A$PECT UTILS title screen"
           body: |
-            Regenerates the WinUtil Light and Dark title-screen composite from the current main branch.
+            Regenerates the A$PECT UTILS Light and Dark title-screen composite from the current main branch.
 
             Source workflow: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           labels: |
@@ -182,21 +182,21 @@ jobs:
         working-directory: tools/title-screen
         run: |
           uv run --locked python inspect_winutil.py `
-              "$env:RUNNER_TEMP\winutil-title-screen-inspect.txt"
+              "$env:RUNNER_TEMP\aspectutils-title-screen-inspect.txt"
 
       - name: Upload failure diagnostics
         if: failure()
         uses: actions/upload-artifact@v7
         with:
-          name: winutil-title-screen-failure-${{ github.run_number }}
+          name: aspectutils-title-screen-failure-${{ github.run_number }}
           path: |
             docs/src/assets/branding/title-screen.png
             ${{ runner.temp }}/title-screen-capture.log
-            ${{ runner.temp }}/winutil-title-screen-inspect.txt
+            ${{ runner.temp }}/aspectutils-title-screen-inspect.txt
           if-no-files-found: warn
           retention-days: 14
 
-      - name: Close WinUtil
+      - name: Close A$PECT UTILS
         if: always()
         run: |
           if ($env:WINUTIL_HOST_PID) {

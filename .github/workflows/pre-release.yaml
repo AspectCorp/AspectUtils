@@ -1,4 +1,4 @@
-name: Pre-Release WinUtil
+name: Pre-Release A$PECT UTILS
 
 permissions:
   contents: write
@@ -87,8 +87,8 @@ jobs:
       - name: Upload compiled script
         uses: actions/upload-artifact@v7
         with:
-          name: winutil-ps1
-          path: ./winutil.ps1
+          name: aspectutils-ps1
+          path: ./AspectUtils.ps1
 
   release:
     needs: build-runspace
@@ -97,7 +97,7 @@ jobs:
       - name: Download compiled script
         uses: actions/download-artifact@v8
         with:
-          name: winutil-ps1
+          name: aspectutils-ps1
 
       - name: Set version from build job
         run: echo "VERSION=${{ needs.build-runspace.outputs.version }}" >> $GITHUB_ENV
@@ -135,9 +135,9 @@ jobs:
           body: |
             ${{ steps.filter_notes.outputs.body }}
 
-            ![GitHub Downloads (specific asset, specific tag)](https://img.shields.io/github/downloads/ChrisTitusTech/winutil/${{ env.VERSION }}/winutil.ps1)
+            ![GitHub Downloads (specific asset, specific tag)](https://img.shields.io/github/downloads/Fl1ckfps/AspectUtils/${{ env.VERSION }}/AspectUtils.ps1)
           append_body: false
-          files: ./winutil.ps1
+          files: ./AspectUtils.ps1
           prerelease: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

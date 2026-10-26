@@ -1,4 +1,4 @@
-name: Remove winutil.ps1 if included in a Push
+name: Remove AspectUtils.ps1 if included in a Push
 
 on:
   push:
@@ -13,22 +13,22 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v7
 
-    - name: Check if winutil.ps1 exists
+    - name: Check if AspectUtils.ps1 exists
       id: check_existence
       run: |
-        if [ -f "winutil.ps1" ]; then
-          echo "winutil_exists=true" >> $GITHUB_OUTPUT
+        if [ -f "AspectUtils.ps1" ]; then
+          echo "aspectutils_exists=true" >> $GITHUB_OUTPUT
         else
-          echo "winutil_exists=false" >> $GITHUB_OUTPUT
+          echo "aspectutils_exists=false" >> $GITHUB_OUTPUT
         fi
 
-    - name: Delete winutil.ps1 if it exists
-      if: steps.check_existence.outputs.winutil_exists == 'true'
+    - name: Delete AspectUtils.ps1 if it exists
+      if: steps.check_existence.outputs.aspectutils_exists == 'true'
       run: |
-        git config --global user.email "winutil-action@noreply.github.com"
-        git config --global user.name "winutil-action"
-        git rm winutil.ps1
-        git commit -m "Delete winutil.ps1 as it is not allowed"
+        git config --global user.email "aspectutils-action@noreply.github.com"
+        git config --global user.name "aspectutils-action"
+        git rm AspectUtils.ps1
+        git commit -m "Delete AspectUtils.ps1 as it is not allowed"
         git push origin HEAD:${{ github.ref }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
