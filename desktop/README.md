@@ -48,6 +48,7 @@ Both publish modes keep `config\` and `Scripts\` next to the executable. Include
 | AppX package management | No | Use the PowerShell app |
 | Win11 Creator | No | Use the PowerShell app |
 | Windows/Office activation | No | Use the PowerShell app's Activation tab |
+| Quickres (resolution switching) | Yes | Presets + custom, native implementation |
 
 Tweak classification comes from the shared catalogs:
 

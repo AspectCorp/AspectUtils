@@ -132,6 +132,16 @@
                                        Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" />
                         </StackPanel>
                     </ListBoxItem>
+                    <ListBoxItem Style="{StaticResource NavButton}" Tag="quickres">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE7F4;"
+                                       Style="{StaticResource NavIcon}"
+                                       Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" />
+                            <TextBlock Text="Quickres"
+                                       VerticalAlignment="Center"
+                                       Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" />
+                        </StackPanel>
+                    </ListBoxItem>
                     <ListBoxItem Style="{StaticResource NavButton}" Tag="log">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="&#xE9D9;"
