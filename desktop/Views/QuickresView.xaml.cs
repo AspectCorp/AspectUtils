@@ -32,9 +32,23 @@ public partial class QuickresView : UserControl, IPageView
 
         foreach (var preset in Presets)
         {
-            PresetCombo.Items.Add(new ComboBoxItem { Content = preset.Label, Tag = preset });
+            var button = new Button
+            {
+                Content = preset.Label,
+                Tag = preset,
+                Style = (Style)FindResource("PrimaryButton"),
+                Margin = new Thickness(0, 0, 8, 8),
+                Padding = new Thickness(12, 6, 12, 6)
+            };
+            button.Click += (s, e) =>
+            {
+                if (button.Tag is (string _, int w, int h))
+                {
+                    Apply(w, h);
+                }
+            };
+            PresetsPanel.Children.Add(button);
         }
-        PresetCombo.SelectedIndex = 0;
 
         var current = ResolutionService.GetCurrent();
         CurrentResolutionText.Text = $"{current.Width}x{current.Height}";
@@ -48,14 +62,6 @@ public partial class QuickresView : UserControl, IPageView
     {
         var current = ResolutionService.GetCurrent();
         CurrentResolutionText.Text = $"{current.Width}x{current.Height}";
-    }
-
-    private void ApplyPresetButton_Click(object sender, RoutedEventArgs e)
-    {
-        if (PresetCombo.SelectedItem is ComboBoxItem { Tag: (string _, int w, int h) })
-        {
-            Apply(w, h);
-        }
     }
 
     private void ApplyCustomButton_Click(object sender, RoutedEventArgs e)

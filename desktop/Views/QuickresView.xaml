@@ -32,15 +32,8 @@
 
                 <TextBlock Text="Preset resolutions"
                            Style="{StaticResource SectionTitle}" />
-                <ComboBox x:Name="PresetCombo"
-                          Margin="0,0,0,12"
-                          Padding="10,6" />
-                <Button x:Name="ApplyPresetButton"
-                        Content="Apply selected preset"
-                        Style="{StaticResource PrimaryButton}"
-                        HorizontalAlignment="Left"
-                        Margin="0,0,0,20"
-                        Click="ApplyPresetButton_Click" />
+                <WrapPanel x:Name="PresetsPanel"
+                           Margin="0,0,0,20" />
 
                 <TextBlock Text="Custom resolution"
                            Style="{StaticResource SectionTitle}" />
