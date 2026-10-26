@@ -2,7 +2,7 @@
 
 A$PECT UTILS is a Windows 11 setup utility for installing apps, applying reversible tweaks, running common fixes, and controlling Windows Update. It ships as a PowerShell app and as a native WPF desktop app, and both front ends read the same configuration files in `config/`.
 
-A$PECT UTILS is a rebranded fork of [WinUtil](https://github.com/ChrisTitusTech/winutil) by Chris Titus Tech and contributors, used under the MIT license. See [NOTICE.md](NOTICE.md).
+A$PECT UTILS used under the MIT license. See [NOTICE.md](NOTICE.md).
 
 ![A$PECT UTILS](docs/public/social-preview.png)
 
