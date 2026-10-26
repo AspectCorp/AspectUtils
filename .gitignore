@@ -22,3 +22,7 @@ __pycache__/
 desktop/bin/
 desktop/obj/
 artifacts/
+
+# local release artifacts
+AspectUtils-Desktop.zip
+AspectUtils-Setup.exe

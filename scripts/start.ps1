@@ -262,4 +262,17 @@ $sync.transcriptPath = $sync.logPath
 Start-Transcript -Path $sync.transcriptPath -Append -NoClobber | Out-Null
 
 $Host.UI.RawUI.WindowTitle = "A`$PECT UTILS"
+
+# Brief startup animation
+$spinner = @('|', '/', '-', '\')
+$deadline = (Get-Date).AddSeconds(1)
+while ((Get-Date) -lt $deadline) {
+    foreach ($frame in $spinner) {
+        Write-Host -NoNewline "`r  Loading A`$PECT UTILS... $frame" -ForegroundColor Green
+        Start-Sleep -Milliseconds 70
+        if ((Get-Date) -ge $deadline) { break }
+    }
+}
+Write-Host ""
+
 Clear-Host

@@ -114,11 +114,23 @@ jobs:
       - name: Zip desktop release
         run: Compress-Archive -Path artifacts\desktop\* -DestinationPath AspectUtils-Desktop.zip
 
+      - name: Install Inno Setup
+        run: |
+          Invoke-WebRequest -Uri 'https://jrsoftware.org/download.php/is.exe' -OutFile inno-setup.exe
+          Start-Process -FilePath .\inno-setup.exe -ArgumentList '/SILENT','/SUPPRESSMSGBOXES','/NORESTART' -Wait
+
+      - name: Build installer
+        run: |
+          $iscc = 'C:\Program Files (x86)\Inno Setup 6\ISCC.exe'
+          & $iscc .\desktop\installer.iss
+
       - name: Upload desktop artifact
         uses: actions/upload-artifact@v7
         with:
           name: aspectutils-desktop
-          path: AspectUtils-Desktop.zip
+          path: |
+            AspectUtils-Desktop.zip
+            artifacts/AspectUtils-Setup.exe
           if-no-files-found: error
 
   release:
@@ -176,6 +188,7 @@ jobs:
           files: |
             ./AspectUtils.ps1
             ./AspectUtils-Desktop.zip
+            ./AspectUtils-Setup.exe
           prerelease: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

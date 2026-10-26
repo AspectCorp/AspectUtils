@@ -10,7 +10,7 @@ A$PECT UTILS is a Windows 11 setup utility. See [LICENSE](LICENSE).
 
 ### Desktop app
 
-Download the latest self-contained build from the [Releases page](https://github.com/flickfpz/AspectUtils/releases/latest) (`AspectUtils-Desktop.zip`), or build it from source with the .NET 8 SDK:
+Download the latest installer from the [Releases page](https://github.com/flickfpz/AspectUtils/releases/latest) (`AspectUtils-Setup.exe`), or build it from source with the .NET 8 SDK:
 
 ```powershell
 dotnet build desktop\AspectUtils.Desktop.csproj -c Release
