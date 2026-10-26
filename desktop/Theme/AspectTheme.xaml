@@ -216,6 +216,22 @@
         <Setter Property="Padding" Value="8,5" />
     </Style>
 
+    <Style TargetType="ComboBoxItem">
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="Padding" Value="8,4" />
+        <Style.Triggers>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter Property="Background" Value="{StaticResource MintBrush}" />
+                <Setter Property="Foreground" Value="Black" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{StaticResource MintBrush}" />
+                <Setter Property="Foreground" Value="Black" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <Style TargetType="CheckBox">
         <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />

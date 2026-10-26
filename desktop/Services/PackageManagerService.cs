@@ -122,6 +122,8 @@ public sealed class PackageManagerService
         if (verb == "install")
         {
             arguments.Add("--silent");
+            arguments.Add("--scope");
+            arguments.Add("machine");
             arguments.Add("--accept-package-agreements");
         }
 
