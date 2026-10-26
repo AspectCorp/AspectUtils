@@ -9,6 +9,22 @@ public partial class App : Application
     {
         base.OnStartup(e);
         DispatcherUnhandledException += OnDispatcherUnhandledException;
+
+        var splash = new SplashWindow();
+        splash.Show();
+
+        Dispatcher.BeginInvoke(new Action(() =>
+        {
+            try
+            {
+                var main = new MainWindow();
+                main.Show();
+            }
+            finally
+            {
+                splash.Close();
+            }
+        }), DispatcherPriority.Background);
     }
 
     private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
