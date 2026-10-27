@@ -115,7 +115,7 @@ jobs:
         run: Compress-Archive -Path artifacts\desktop\* -DestinationPath AspectUtils-Desktop.zip
 
       - name: Install Inno Setup
-        uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
+        uses: Minionguyjpro/Inno-Setup-Action@v1.2.9
         with:
           path: desktop/installer.iss
 
