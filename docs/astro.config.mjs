@@ -34,7 +34,7 @@ export default defineConfig({
 				Footer: './src/components/Footer.astro',
 			},
 			editLink: {
-				baseUrl: 'https://github.com/flickfpz/AspectUtils/edit/main/docs/',
+				baseUrl: 'https://github.com/AspectCorp/AspectUtils/edit/main/docs/',
 			},
 			// Sidebar groups, top to bottom: User Guide, Code Reference, Help.
 			sidebar: [

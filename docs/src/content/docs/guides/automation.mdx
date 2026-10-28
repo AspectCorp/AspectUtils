@@ -16,11 +16,11 @@ A$PECT UTILS supports predefined presets that apply common configurations automa
 Example:
 
 ```powershell
-& ([ScriptBlock]::Create((irm "https://github.com/flickfpz/AspectUtils/releases/latest/download/AspectUtils.ps1"))) -Preset Standard
+& ([ScriptBlock]::Create((irm "https://github.com/AspectCorp/AspectUtils/releases/latest/download/AspectUtils.ps1"))) -Preset Standard
 ```
 
 To view exactly what each preset does, see:
-https://github.com/flickfpz/AspectUtils/blob/main/config/preset.json
+https://github.com/AspectCorp/AspectUtils/blob/main/config/preset.json
 
 To find a key for a custom configuration, hover over a supported application, tweak, feature, or AppX entry in A$PECT UTILS. Its tooltip shows `Preset key: <key>`. Application keys are searchable on the Install tab, while tweak and AppX keys are searchable on their respective tabs. Feature keys are available from their tooltips because the Config/Features tab does not have search. Controls that cannot be applied from a preset, such as toggle switches, drop-downs, and package-manager choices, intentionally do not advertise a preset key.
 
@@ -37,7 +37,7 @@ Export also copies a command to the clipboard that launches A$PECT UTILS with th
 
 You can also launch A$PECT UTILS with an exported config using this command:
 ```powershell
-& ([ScriptBlock]::Create((irm "https://github.com/flickfpz/AspectUtils/releases/latest/download/AspectUtils.ps1"))) -Config "C:\Path\To\Config.json"
+& ([ScriptBlock]::Create((irm "https://github.com/AspectCorp/AspectUtils/releases/latest/download/AspectUtils.ps1"))) -Config "C:\Path\To\Config.json"
 ```
 
 Repeated keys in an imported configuration select each entry only once. Unchecking an imported entry removes it from the selection, even if its key appeared more than once in the file.
@@ -53,7 +53,7 @@ Exported configurations contain the A$PECT UTILS catalog keys that existed when 
 
 Older A$PECT UTILS versions exported a JSON object with `Install` package metadata and grouped `WPFInstall`, `WPFTweaks`, `WPFToggle`, and `WPFFeature` selections. When importing one of these legacy files, A$PECT UTILS restores the keys that still exist and skips retired keys, recording them as a warning in the A$PECT UTILS log. If the file contains no supported selections, the import makes no changes.
 
-To recover, compare the reported key with the current files in the [A$PECT UTILS configuration catalog](https://github.com/flickfpz/AspectUtils/tree/main/config). Remove or replace the stale key in your JSON file, or create and export a new configuration with the current A$PECT UTILS version, then run the import again. Re-export long-lived baselines after catalog changes so they remain compatible.
+To recover, compare the reported key with the current files in the [A$PECT UTILS configuration catalog](https://github.com/AspectCorp/AspectUtils/tree/main/config). Remove or replace the stale key in your JSON file, or create and export a new configuration with the current A$PECT UTILS version, then run the import again. Re-export long-lived baselines after catalog changes so they remain compatible.
 :::
 
 :::note

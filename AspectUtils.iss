@@ -5,9 +5,9 @@
 AppName=A$PECT UTILS
 AppVersion=2.0.1
 AppPublisher=A$PECT UTILS
-AppPublisherURL=https://github.com/flickfpz/AspectUtils
-AppSupportURL=https://github.com/flickfpz/AspectUtils
-AppUpdatesURL=https://github.com/flickfpz/AspectUtils
+AppPublisherURL=https://github.com/AspectCorp/AspectUtils
+AppSupportURL=https://github.com/AspectCorp/AspectUtils
+AppUpdatesURL=https://github.com/AspectCorp/AspectUtils
 DefaultDirName={commonpf}\A$PECT UTILS
 DisableProgramGroupPage=yes
 UninstallDisplayIcon={commonpf}\A$PECT UTILS\AspectUtils.exe

@@ -10,7 +10,7 @@ A$PECT UTILS is a Windows 11 setup utility. See [LICENSE](LICENSE).
 
 ### Desktop app
 
-Download the latest installer from the [Releases page](https://github.com/flickfpz/AspectUtils/releases/latest) (`AspectUtils-Setup.exe`), or build it from source with the .NET 8 SDK:
+Download the latest installer from the [Releases page](https://github.com/AspectCorp/AspectUtils/releases/latest) (`AspectUtils-Setup.exe`), or build it from source with the .NET 8 SDK:
 
 ```powershell
 dotnet build desktop\AspectUtils.Desktop.csproj -c Release
@@ -30,7 +30,7 @@ The app requests administrator rights when it starts. See [desktop/README.md](de
 Run PowerShell or Terminal as Administrator, then:
 
 ```powershell
-irm "https://github.com/flickfpz/AspectUtils/releases/latest/download/AspectUtils.ps1" | iex
+irm "https://github.com/AspectCorp/AspectUtils/releases/latest/download/AspectUtils.ps1" | iex
 ```
 
 To run from a local checkout instead:
@@ -44,7 +44,7 @@ To run from a local checkout instead:
 Apply a predefined configuration without manual selection:
 
 ```powershell
-& ([ScriptBlock]::Create((irm "https://github.com/flickfpz/AspectUtils/releases/latest/download/AspectUtils.ps1"))) -Preset Standard
+& ([ScriptBlock]::Create((irm "https://github.com/AspectCorp/AspectUtils/releases/latest/download/AspectUtils.ps1"))) -Preset Standard
 ```
 
 | Preset | Description |
