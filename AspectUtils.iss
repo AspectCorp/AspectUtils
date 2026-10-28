@@ -24,11 +24,12 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "startmenu"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: exclusive
 
 [Files]
-Source: "publish\release\AspectUtils.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "publish\release-selfcontained\AspectUtils.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "publish\release-selfcontained\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "config\*.json"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Scripts\*.ps1"; DestDir: "{app}\Scripts"; Flags: ignoreversion
-Source: "publish\release\Theme\AspectTheme.xaml"; DestDir: "{app}\Theme"; Flags: ignoreversion
-Source: "publish\release\Assets\*"; DestDir: "{app}\Assets"; Flags: ignoreversion
+Source: "publish\release-selfcontained\Theme\AspectTheme.xaml"; DestDir: "{app}\Theme"; Flags: ignoreversion
+Source: "publish\release-selfcontained\Assets\*"; DestDir: "{app}\Assets"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\A$PECT UTILS"; Filename: "{app}\AspectUtils.exe"

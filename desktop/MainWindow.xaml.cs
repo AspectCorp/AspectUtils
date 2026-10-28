@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using AspectUtils.Desktop.Dialogs;
 using AspectUtils.Desktop.Services;
 using AspectUtils.Desktop.Views;
+using System.Threading.Tasks;
 
 namespace AspectUtils.Desktop;
 
@@ -62,6 +63,21 @@ public partial class MainWindow : AspectUtils.Desktop.Theme.ThemedWindow, IShell
         VersionText.Text = $"v{BrandInfo.Version}";
         Session.Log.Info("Desktop shell ready.");
         NavList.SelectedIndex = 0;
+        _ = CheckUpdatesAsync();
+    }
+
+    private async Task CheckUpdatesAsync()
+    {
+        try
+        {
+            var result = await UpdateService.CheckForUpdateAsync();
+            if (result.HasUpdate && !string.IsNullOrEmpty(result.Url))
+            {
+                Dispatcher.Invoke(() => UpdateService.ShowUpdateDialog(result.LatestVersion, result.Url));
+            }
+        }
+        catch { }
+
     }
 
     public AppSession Session { get; }
