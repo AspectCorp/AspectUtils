@@ -29,8 +29,10 @@ public partial class App : Application
 
     private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
+        var msg = $"{e.Exception.GetType().Name}: {e.Exception.Message}\nInner: {e.Exception.InnerException}\nStack: {e.Exception.StackTrace}";
+        System.IO.File.WriteAllText(@"C:\Users\Public\aspect_error.log", msg);
         MessageBox.Show(
-            e.Exception.Message,
+            msg,
             "A$PECT UTILS",
             MessageBoxButton.OK,
             MessageBoxImage.Error);

@@ -17,6 +17,7 @@ public partial class MainWindow : AspectUtils.Desktop.Theme.ThemedWindow, IShell
         ["fixes"] = ("Fixes", "Repair common Windows problems with focused, auditable scripts."),
         ["features"] = ("Windows features", "Enable or remove optional Windows components. A restart is often required."),
         ["updates"] = ("Windows Update", "Choose how this PC receives updates. Settings apply to the whole machine."),
+        ["driver"] = ("Drivers", "Auto-detect hardware categories and install packages via WinGet."),
         ["quickres"] = ("Quickres", "Instant resolution switching for stretched res."),
         ["log"] = ("Activity log", "Every operation is written to a session log on this PC.")
     };
@@ -176,6 +177,7 @@ public partial class MainWindow : AspectUtils.Desktop.Theme.ThemedWindow, IShell
                 "features" => new FeaturesView(this),
                 "updates" => new UpdatesView(this),
                 "quickres" => new QuickresView(this),
+                "driver" => new DriverView(this),
                 "log" => new LogView(this),
                 _ => throw new ArgumentOutOfRangeException(nameof(pageKey), pageKey, null)
             };

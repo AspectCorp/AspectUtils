@@ -20,10 +20,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Management" Version="8.0.0" />
     <Content Include="..\config\*.json" Link="config\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Scripts\*.ps1" CopyToOutputDirectory="PreserveNewest" />
     <Resource Include="Assets\AspectUtils.png" />
     <Resource Include="Assets\AspectUtils.ico" />
+    <Content Include="Theme\*.xaml" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\*" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

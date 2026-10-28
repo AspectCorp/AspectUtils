@@ -1,26 +1,18 @@
 ; Inno Setup script for A$PECT UTILS Desktop App
-; Generated for: AspectUtils.Desktop
 ; Build: publish\release\AspectUtils.exe
 
 [Setup]
-; Basic info
 AppName=A$PECT UTILS
-AppVersion=1.0.0
+AppVersion=2.0.1
 AppPublisher=A$PECT UTILS
-AppPublisherURL=https://winutil.christitus.com
-AppSupportURL=https://winutil.christitus.com/code-reference/
-AppUpdatesURL=https://winutil.christitus.com/code-reference/
-; Use {code:GetAdminFlags} for admin requirement
+AppPublisherURL=https://github.com/flickfpz/AspectUtils
+AppSupportURL=https://github.com/flickfpz/AspectUtils
+AppUpdatesURL=https://github.com/flickfpz/AspectUtils
 DefaultDirName={commonpf}\A$PECT UTILS
 DisableProgramGroupPage=yes
-DisableProgramsPage=yes
-UninstallDisplayIcon={commondir}\A$PECT UTILS\AspectUtils.exe
-UninstallAfterInstall=no
-; Make installer run as admin
+UninstallDisplayIcon={commonpf}\A$PECT UTILS\AspectUtils.exe
 PrivilegesRequired=admin
-; Create uninstaller
 Uninstallable=yes
-; Output file
 OutputDir="."
 OutputBaseFilename=AspectUtils_Install
 
@@ -28,32 +20,20 @@ OutputBaseFilename=AspectUtils_Install
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: skipchecked
-
-[Tasks]
-Name: "startmenu"; Description: "{cm:CreateStartMenuDir}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: skipchecked
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: exclusive
+Name: "startmenu"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: exclusive
 
 [Files]
-; Copy the executable
 Source: "publish\release\AspectUtils.exe"; DestDir: "{app}"; Flags: ignoreversion
-; Copy config files
 Source: "config\*.json"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Scripts\*.ps1"; DestDir: "{app}\Scripts"; Flags: ignoreversion
-; Copy theme
-Source: "desktop\Theme\AspectTheme.xaml"; DestDir: "{app}"; Flags: ignoreversion
-; Copy resources
-Source: "Assets\\*"; DestDir: "{app}"; Flags: ignoreversion
+Source: "publish\release\Theme\AspectTheme.xaml"; DestDir: "{app}\Theme"; Flags: ignoreversion
+Source: "publish\release\Assets\*"; DestDir: "{app}\Assets"; Flags: ignoreversion
 
 [Icons]
-Name: "{group}A$PECT UTILS"; Filename: "{app}\AspectUtils.exe"
-Name: "desktopicon"; Filename: "{app}\AspectUtils.exe"; Tasks: desktopicon
-
-[Tasks]
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; Flags: defaultchecked
+Name: "{group}\A$PECT UTILS"; Filename: "{app}\AspectUtils.exe"
+Name: "{group}\A$PECT UTILS\Desktop"; Filename: "{app}\AspectUtils.exe"; Tasks: desktopicon
 
 [UninstallRun]
-; No specific uninstall steps needed - the exe doesn't install services etc
-; Just remove the folder
 
 [Messages]
-; Custom messages if needed

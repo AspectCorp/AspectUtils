@@ -140,7 +140,9 @@ public partial class InstallView : UserControl, IPageView
 
     private async void Install_Click(object sender, RoutedEventArgs e)
     {
-        var apps = _rows.Where(row => row.IsSelected).Select(row => row.Definition).ToList();
+        try
+        {
+            var apps = _rows.Where(row => row.IsSelected).Select(row => row.Definition).ToList();
         if (apps.Count == 0)
         {
             return;
@@ -183,6 +185,12 @@ public partial class InstallView : UserControl, IPageView
             {
                 row.IsSelected = false;
             }
+        }
+        }
+        catch (Exception ex)
+        {
+            System.IO.File.WriteAllText($@"C:\Users\Public\aspect_install_error.log", ex.ToString() + "\nInner: " + ex.InnerException);
+            MessageBox.Show("Install error: " + ex.Message, "A$PECT UTILS", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
