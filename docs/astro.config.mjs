@@ -16,10 +16,10 @@ export default defineConfig({
 			},
 			favicon: '/favicon.svg',
 			head: [
-				{ tag: 'meta', attrs: { property: 'og:image', content: 'https://fl1ckfps.github.io/AspectUtils/social-preview.png' } },
+				{ tag: 'meta', attrs: { property: 'og:image', content: 'https://aspectutils.pages.dev/social-preview.png' } },
 				{ tag: 'meta', attrs: { property: 'og:image:width', content: '1200' } },
 				{ tag: 'meta', attrs: { property: 'og:image:height', content: '630' } },
-				{ tag: 'meta', attrs: { name: 'twitter:image', content: 'https://fl1ckfps.github.io/AspectUtils/social-preview.png' } },
+				{ tag: 'meta', attrs: { name: 'twitter:image', content: 'https://aspectutils.pages.dev/social-preview.png' } },
 			],
 			social: [
 				{ icon: 'github', label: 'GitHub', href: siteLinks.repo.href },
