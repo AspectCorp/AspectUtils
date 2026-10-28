@@ -1,5 +1,5 @@
 ; Inno Setup script for A$PECT UTILS Desktop App
-; Build: publish\release\AspectUtils.exe
+; Build: publish\release-selfcontained\AspectUtils.exe (self-contained, no .NET runtime needed on target)
 
 [Setup]
 AppName=A$PECT UTILS
@@ -8,9 +8,11 @@ AppPublisher=A$PECT UTILS
 AppPublisherURL=https://github.com/AspectCorp/AspectUtils
 AppSupportURL=https://github.com/AspectCorp/AspectUtils
 AppUpdatesURL=https://github.com/AspectCorp/AspectUtils
-DefaultDirName={commonpf}\A$PECT UTILS
+DefaultDirName={autopf}\A$PECT UTILS
+ArchitecturesAllowed=x64
+ArchitecturesInstallIn64BitMode=x64
 DisableProgramGroupPage=yes
-UninstallDisplayIcon={commonpf}\A$PECT UTILS\AspectUtils.exe
+UninstallDisplayIcon={app}\AspectUtils.exe
 PrivilegesRequired=admin
 Uninstallable=yes
 OutputDir="."
@@ -26,7 +28,7 @@ Name: "startmenu"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm
 [Files]
 Source: "publish\release-selfcontained\AspectUtils.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "publish\release-selfcontained\*.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "config\*.json"; DestDir: "{app}"; Flags: ignoreversion
+Source: "config\*.json"; DestDir: "{app}\config"; Flags: ignoreversion
 Source: "Scripts\*.ps1"; DestDir: "{app}\Scripts"; Flags: ignoreversion
 Source: "publish\release-selfcontained\Theme\AspectTheme.xaml"; DestDir: "{app}\Theme"; Flags: ignoreversion
 Source: "publish\release-selfcontained\Assets\*"; DestDir: "{app}\Assets"; Flags: ignoreversion
