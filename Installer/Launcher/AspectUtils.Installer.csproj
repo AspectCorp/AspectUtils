@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>AspectUtilsSetup</AssemblyName>
+    <RootNamespace>AspectUtils.Installer</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\appicon.ico</ApplicationIcon>
+    <Version>2.1.1</Version>
+    <Authors>A$PECT UTILS contributors</Authors>
+    <Company>A$PECT UTILS</Company>
+    <Product>A$PECT UTILS</Product>
+    <Description>Installs A$PECT UTILS for every account on this PC.</Description>
+    <Copyright>A$PECT UTILS</Copyright>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\*" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(PayloadZip)' != '' and Exists('$(PayloadZip)')">
+    <EmbeddedResource Include="$(PayloadZip)" LogicalName="AspectUtils.Payload.zip" />
+  </ItemGroup>
+
+</Project>

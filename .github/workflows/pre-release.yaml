@@ -22,13 +22,13 @@ jobs:
       - name: Generate Dev Docs and Update JSON Links
         shell: pwsh
         run: |
-          Set-Location tools
+          Set-Location PowerShellApp/tools
           ./devdocs-generator.ps1
 
       - name: Compile project
         shell: pwsh
         run: |
-          Set-ExecutionPolicy Bypass -Scope Process -Force; ./Compile.ps1
+          Set-ExecutionPolicy Bypass -Scope Process -Force; ./PowerShellApp/Compile.ps1
         continue-on-error: false # Directly fail the job on error, removing the need for a separate check
 
       - name: Create Pull Request for Updated Docs and JSON Links
@@ -44,8 +44,8 @@ jobs:
           delete-branch: true
           add-paths: |
             docs/src/content/docs/code-reference/
-            config/tweaks.json
-            config/feature.json
+            PowerShellApp/config/tweaks.json
+            PowerShellApp/config/feature.json
           labels: |
             automated
             documentation
@@ -89,7 +89,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: aspectutils-ps1
-          path: ./AspectUtils.ps1
+          path: ./PowerShellApp/AspectUtils.ps1
 
   build-desktop:
     runs-on: windows-latest
@@ -102,25 +102,13 @@ jobs:
         with:
           dotnet-version: "8.0.x"
 
-      - name: Publish desktop app
-        run: >
-          dotnet publish desktop\AspectUtils.Desktop.csproj
-          -c Release
-          -r win-x64
-          --self-contained true
-          -p:PublishSingleFile=true
-          -o artifacts\desktop
-
-      - name: Zip desktop release
-        run: Compress-Archive -Path artifacts\desktop\* -DestinationPath AspectUtils-Desktop.zip
-
       - name: Install Inno Setup
-        uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
-        with:
-          path: desktop/installer.iss
+        run: choco install innosetup --no-progress -y
+        shell: pwsh
 
-      - name: Locate installer
-        run: Get-ChildItem -Path artifacts -Recurse -Filter *.exe
+      - name: Build desktop app and installer
+        run: ./Installer/build.ps1 -Inno -Zip
+        shell: pwsh
 
       - name: Upload desktop artifact
         uses: actions/upload-artifact@v7
@@ -128,7 +116,8 @@ jobs:
           name: aspectutils-desktop
           path: |
             AspectUtils-Desktop.zip
-            artifacts/AspectUtils-Setup.exe
+            Installer/output/launcher/AspectUtilsSetup.exe
+            Installer/output/AspectUtils_Install.exe
           if-no-files-found: error
 
   release:
@@ -139,12 +128,35 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: aspectutils-ps1
+          path: ./ps-artifact
 
       - name: Download desktop release
         uses: actions/download-artifact@v8
         with:
           name: aspectutils-desktop
-          path: .
+          path: ./desktop-artifact
+
+      - name: Prepare release assets
+        shell: pwsh
+        run: |
+          $script = Get-ChildItem -Path ./ps-artifact -Recurse -Filter AspectUtils.ps1 | Select-Object -First 1
+          if (-not $script) { throw 'Compiled AspectUtils.ps1 was not found in the downloaded artifact.' }
+          Copy-Item -LiteralPath $script.FullName -Destination ./AspectUtils.ps1 -Force
+
+          # The WPF launcher with embedded payload is the primary release artifact.
+          $launcher = Get-ChildItem -Path ./desktop-artifact -Recurse -Filter AspectUtilsSetup.exe | Select-Object -First 1
+          if (-not $launcher) { throw 'The setup launcher (AspectUtilsSetup.exe) was not found in the downloaded artifact.' }
+          Copy-Item -LiteralPath $launcher.FullName -Destination ./AspectUtilsSetup.exe -Force
+
+          # The optional Inno Setup package is built with -Inno.
+          $inno = Get-ChildItem -Path ./desktop-artifact -Recurse -Filter AspectUtils_Install.exe | Select-Object -First 1
+          if ($inno) {
+              Copy-Item -LiteralPath $inno.FullName -Destination ./AspectUtils_Install.exe -Force
+          }
+
+          $zip = Get-ChildItem -Path ./desktop-artifact -Recurse -Filter AspectUtils-Desktop.zip | Select-Object -First 1
+          if (-not $zip) { throw 'AspectUtils-Desktop.zip was not found in the downloaded artifact.' }
+          Copy-Item -LiteralPath $zip.FullName -Destination ./AspectUtils-Desktop.zip -Force
 
       - name: Set version from build job
         run: echo "VERSION=${{ needs.build-runspace.outputs.version }}" >> $GITHUB_ENV
@@ -187,7 +199,7 @@ jobs:
           files: |
             ./AspectUtils.ps1
             ./AspectUtils-Desktop.zip
-            ./artifacts/AspectUtils-Setup.exe
+            ./AspectUtilsSetup.exe
           prerelease: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

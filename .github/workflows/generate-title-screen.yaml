@@ -96,11 +96,11 @@ jobs:
       - name: Compile A$PECT UTILS
         run: |
           Set-ExecutionPolicy Bypass -Scope Process -Force
-          ./Compile.ps1
+          ./PowerShellApp/Compile.ps1
 
       - name: Launch A$PECT UTILS
         run: |
-          $scriptPath = Join-Path $env:GITHUB_WORKSPACE "AspectUtils.ps1"
+          $scriptPath = Join-Path $env:GITHUB_WORKSPACE "PowerShellApp/AspectUtils.ps1"
           $command = "& '$scriptPath'"
           $bytes = [Text.Encoding]::Unicode.GetBytes($command)
           $encodedCommand = [Convert]::ToBase64String($bytes)
@@ -138,10 +138,10 @@ jobs:
               Out-File $env:GITHUB_ENV -Append -Encoding utf8
 
       - name: Generate title screen
-        working-directory: tools/title-screen
+        working-directory: PowerShellApp/tools/title-screen
         run: |
           & uv run --locked python automate_title_screen.py `
-              --output ..\..\docs\src\assets\branding\title-screen.png 2>&1 |
+              --output ..\..\..\docs\src\assets\branding\title-screen.png 2>&1 |
               Tee-Object -FilePath "$env:RUNNER_TEMP\title-screen-capture.log"
 
           if ($LASTEXITCODE -ne 0) {
@@ -179,7 +179,7 @@ jobs:
       - name: Inspect UI Automation on failure
         if: failure()
         continue-on-error: true
-        working-directory: tools/title-screen
+        working-directory: PowerShellApp/tools/title-screen
         run: |
           uv run --locked python inspect_winutil.py `
               "$env:RUNNER_TEMP\aspectutils-title-screen-inspect.txt"

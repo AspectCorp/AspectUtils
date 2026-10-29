@@ -98,20 +98,22 @@ While you can make your changes directly through the web, we recommend cloning t
 
 * To test to see if your changes work as intended, run the following commands in a PowerShell terminal as admin:
 
-* Change the directory where you are running the commands to the forked project.
-* `cd {path to the folder with the compile.ps1}`
+* Change the directory where you are running the commands to the forked project root.
 * Run the following command to compile and run the PowerShell app:
-* `.\Compile.ps1 -Run`
+* `.\PowerShellApp\Compile.ps1 -Run`
 
 * To build the desktop app:
-* `dotnet build desktop/AspectUtils.Desktop.csproj -c Debug`
+* `dotnet build MainApp/AspectUtils.Desktop.csproj -c Debug`
+
+* To build the installer (requires Inno Setup 6):
+* `.\Installer\build.ps1`
 
 ![Compile](../../assets/contributing/Compile.png)
 
 * After seeing that your changes work properly, feel free to commit the changes to the repository and make a PR. For help on that, follow the documentation below.
 
 ### Committing the changes
-* Before committing your changes, please discard changes made to the generated `AspectUtils.ps1` file, like the following:
+* Before committing your changes, please discard changes made to the generated `PowerShellApp/AspectUtils.ps1` file, like the following:
 
 ![Push Commit Image](../../assets/contributing/Discard-GHD.png)
 

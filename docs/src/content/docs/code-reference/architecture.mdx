@@ -9,14 +9,17 @@ A$PECT UTILS is a Windows setup toolkit with two front ends: a PowerShell app wi
 
 ## Desktop app
 
-The desktop app in `desktop/` is a .NET 8 WPF application with no NuGet dependencies. It targets `net8.0-windows`, requests administrator rights through `app.manifest`, and copies `config/*.json` plus its helper scripts into the build output.
+The desktop app in `MainApp/` is a .NET 8 WPF application. It targets `net8.0-windows`, uses `System.Management` for hardware detection, requests administrator rights through `app.manifest`, and copies `../PowerShellApp/config/*.json` plus its helper scripts into the build output.
 
 - `Services/ConfigService.cs` loads the shared JSON catalogs and tolerates control characters inside upstream script strings.
 - `Services/TweakEngine.cs` applies tweaks and records registry snapshots in `%LocalAppData%\AspectUtils\state\applied-tweaks.json` so changes can be undone.
 - `Services/PackageManagerService.cs` drives WinGet and Chocolatey for install, upgrade, and uninstall.
-- `Services/FeatureService.cs` and the scripts under `desktop/Scripts/` cover Windows features, fixes, and update profiles.
-- `Views/` contains the seven pages: Dashboard, Install apps, Tweaks, Fixes, Features, Updates, and Activity log.
-- AppX package management and Win11 Creator remain PowerShell-only in the current version.
+- `Services/FeatureService.cs` and the scripts under `MainApp/Scripts/` cover Windows features, fixes, and update profiles.
+- `Services/UpdateService.cs` checks the latest GitHub release and the shell opens a themed update dialog when a newer build exists.
+- `Views/` contains the nine pages: Dashboard, Install apps, Tweaks, Fixes, Features, Updates, Quickres, Drivers, and Activity log.
+- AppX package management, Win11 Creator, and activation remain PowerShell-only in the current version.
+
+`Installer/build.ps1` publishes the desktop app as a self-contained win-x64 build, verifies the runtime files, packs the payload, and embeds it in the single-file WPF setup launcher at `Installer/output/launcher/AspectUtilsSetup.exe`. The launcher detects the named `AspectUtils.SingleInstance` mutex, asks before closing running copies, extracts its embedded payload, copies files with retries, and creates shortcuts.
 
 ## High-Level Architecture
 
@@ -52,41 +55,45 @@ The desktop app in `desktop/` is a .NET 8 WPF application with no NuGet dependen
 
 ```
 AspectUtils/
-├── Compile.ps1                 # Build script that combines all files
-├── AspectUtils.ps1             # Compiled output (generated)
-├── scripts/
-│   ├── main.ps1               # Entry point and GUI initialization
-│   └── start.ps1              # Startup logic
-├── functions/
-│   ├── private/               # Internal helper functions
-│   │   ├── Get-WinUtilVariables.ps1
-│   │   ├── Install-WinUtilWinget.ps1
-│   │   └── ...
-│   ├── public/                # User-facing functions
-│   │   ├── Initialize-WPFUI.ps1
-│   │   └── ...
-├── config/                    # Shared JSON configuration files
-│   ├── applications.json      # Application definitions
-│   ├── tweaks.json           # Tweak definitions
-│   ├── feature.json          # Windows feature definitions
-│   └── preset.json           # Preset configurations
-├── xaml/
-│   └── inputXML.xaml         # GUI layout definition
-├── desktop/                   # Native WPF desktop app (.NET 8)
+├── MainApp/                    # Native WPF desktop app (.NET 8)
 │   ├── AspectUtils.Desktop.csproj
-│   ├── Services/              # Config, tweaks, packages, undo
-│   ├── Views/                 # Install, Tweaks, Fixes, Features, Updates, Log
-│   └── Scripts/               # Fix and update helper scripts
-└── docs/                     # Documentation
+│   ├── Services/               # Config, tweaks, packages, undo, updates
+│   ├── Views/                  # Dashboard, Install, Tweaks, Fixes, Features, Updates, Quickres, Drivers, Log
+│   └── Scripts/                # Fix and update helper scripts
+├── PowerShellApp/
+│   ├── Compile.ps1             # Build script that combines all PowerShell sources
+│   ├── AspectUtils.ps1         # Compiled output (generated)
+│   ├── scripts/
+│   │   ├── main.ps1            # Entry point and GUI initialization
+│   │   └── start.ps1           # Startup logic
+│   ├── functions/
+│   │   ├── private/            # Internal helper functions
+│   │   │   ├── Get-WinUtilVariables.ps1
+│   │   │   ├── Install-WinUtilWinget.ps1
+│   │   │   └── ...
+│   │   └── public/             # User-facing functions
+│   │       ├── Initialize-WPFUI.ps1
+│   │       └── ...
+│   ├── config/                 # Shared JSON configuration files
+│   │   ├── applications.json   # Application definitions
+│   │   ├── tweaks.json         # Tweak definitions
+│   │   ├── feature.json        # Windows feature definitions
+│   │   └── preset.json         # Preset configurations
+│   ├── xaml/
+│   │   └── inputXML.xaml       # GUI layout definition
+│   ├── pester/                 # Pester tests
+│   └── tools/                  # Branding, title-screen, and doc generation
+├── Installer/                  # Inno Setup definition and packaging pipeline
+└── docs/                       # Documentation
 ```
 
 ### Key Components
 
-#### 1. Compile.ps1
+#### 1. PowerShellApp/Compile.ps1
 **Purpose**: Combines all separate script files into a single `AspectUtils.ps1` for distribution.
 
 **Process**:
-1. Reads all function files from `/functions/`
+1. Reads all function files from `/PowerShellApp/functions/`
 2. Includes configuration JSON files
 3. Embeds XAML GUI definition
 4. Combines into a single script
@@ -94,7 +101,7 @@ AspectUtils/
 
 **Why**: Makes distribution easier (single file) and improves load time.
 
-#### 2. scripts/main.ps1
+#### 2. PowerShellApp/scripts/main.ps1
 **Purpose**: Entry point that manages the run.
 
 **Responsibilities**:
@@ -105,7 +112,7 @@ AspectUtils/
 
 The interface itself lives in `Start-WinUtilUserInterface`, not here. See [Threading Model](#threading-model).
 
-#### 3. functions/public/
+#### 3. PowerShellApp/functions/public/
 **Purpose**: User-facing functions that implement main features.
 
 **Key Functions**:
@@ -116,7 +123,7 @@ The interface itself lives in `Start-WinUtilUserInterface`, not here. See [Threa
 
 **Naming Convention**: Functions start with `WPF` or `Winutil` to be loaded into the runspace.
 
-#### 4. functions/private/
+#### 4. PowerShellApp/functions/private/
 **Purpose**: Internal helper functions not directly called by users.
 
 **Key Functions**:
@@ -125,7 +132,7 @@ The interface itself lives in `Start-WinUtilUserInterface`, not here. See [Threa
 - `Get-WinUtilCheckBoxes.ps1`: Gets checkbox states
 - `Invoke-WinUtilCurrentSystem.ps1`: Gets system information
 
-#### 5. config/*.json
+#### 5. PowerShellApp/config/*.json
 **Purpose**: Define available applications, tweaks, and features declaratively.
 
 **Files**:
@@ -135,7 +142,7 @@ The interface itself lives in `Start-WinUtilUserInterface`, not here. See [Threa
 - `preset.json`: Predefined tweak combinations
 - `dns.json`: DNS provider configurations
 
-#### 6. xaml/inputXML.xaml
+#### 6. PowerShellApp/xaml/inputXML.xaml
 **Purpose**: WPF GUI layout and design.
 
 **Structure**:
@@ -150,7 +157,7 @@ The **Win11 Creator** is a specialized subsystem within Winutil that creates cus
 
 ### Win11 Creator Components
 
-**Core Functions** (`functions/private/`):
+**Core Functions** (`PowerShellApp/functions/private/`):
 - `Invoke-WinUtilISO.ps1`: Main orchestrator containing ISO workflow and helper functions
   - `Invoke-WinUtilISOBrowse`: ISO file selection dialog
   - `Invoke-WinUtilISOMountAndVerify`: Validates and mounts ISO, verifies it is an official Windows 11 ISO
@@ -378,7 +385,7 @@ Update UI
 
 ### applications.json Structure
 
-```json title="config/applications.json"
+```json title="PowerShellApp/config/applications.json"
 {
   "WPFInstall<AppName>": {
     "category": "Browsers",
@@ -401,7 +408,7 @@ Update UI
 
 ### tweaks.json Structure
 
-```json title="config/tweaks.json"
+```json title="PowerShellApp/config/tweaks.json"
 {
   "WPFTweaksTelemetry": {
     "Content": "Disable Telemetry",
@@ -556,14 +563,14 @@ without a competing direct file write.
 
 ## Configuration Loading
 
-At startup, Winutil loads all configurations:
+At startup, A$PECT UTILS loads all configurations:
 
 ```powershell
 # Load JSON configs
 $sync.configs = @{}
-$sync.configs.applications = Get-Content "config/applications.json" | ConvertFrom-Json
-$sync.configs.tweaks = Get-Content "config/tweaks.json" | ConvertFrom-Json
-$sync.configs.features = Get-Content "config/feature.json" | ConvertFrom-Json
+$sync.configs.applications = Get-Content "PowerShellApp/config/applications.json" | ConvertFrom-Json
+$sync.configs.tweaks = Get-Content "PowerShellApp/config/tweaks.json" | ConvertFrom-Json
+$sync.configs.features = Get-Content "PowerShellApp/config/feature.json" | ConvertFrom-Json
 ```
 
 **Sync Hash**: `$sync` hashtable shares state across runspaces.
@@ -592,8 +599,8 @@ twenty times as much per command - enough to turn a checkbox refresh into a visi
 
 ### Adding a New Application
 
-1. Edit `config/applications.json`:
-```json title="config/applications.json"
+1. Edit `PowerShellApp/config/applications.json`:
+```json title="PowerShellApp/config/applications.json"
 {
   "WPFInstallNewApp": {
     "category": "Utilities",
@@ -605,13 +612,13 @@ twenty times as much per command - enough to turn a checkbox refresh into a visi
 }
 ```
 
-2. Recompile: `.\Compile.ps1`
+2. Recompile: `.\PowerShellApp\Compile.ps1`
 3. The app appears automatically in the Install tab
 
 ### Adding a New Tweak
 
-1. Edit `config/tweaks.json`:
-```json title="config/tweaks.json"
+1. Edit `PowerShellApp/config/tweaks.json`:
+```json title="PowerShellApp/config/tweaks.json"
 {
   "WPFTweaksNewTweak": {
     "Content": "New Tweak",
@@ -630,14 +637,14 @@ twenty times as much per command - enough to turn a checkbox refresh into a visi
 }
 ```
 
-2. Recompile: `.\Compile.ps1`
+2. Recompile: `.\PowerShellApp\Compile.ps1`
 3. Tweak appears in the Tweaks tab
 
 ### Adding a New Function
 
-1. Create file in `functions/public/` or `functions/private/`:
+1. Create file in `PowerShellApp/functions/public/` or `PowerShellApp/functions/private/`:
 ```powershell
-# functions/public/Invoke-WPFNewFeature.ps1
+# PowerShellApp/functions/public/Invoke-WPFNewFeature.ps1
 function Invoke-WPFNewFeature {
     <#
     .SYNOPSIS
@@ -648,7 +655,7 @@ function Invoke-WPFNewFeature {
 ```
 
 2. File naming must include "WPF" or "Winutil" to load
-3. Recompile: `.\Compile.ps1`
+3. Recompile: `.\PowerShellApp\Compile.ps1`
 
 ## Testing
 
@@ -656,12 +663,12 @@ function Invoke-WPFNewFeature {
 
 ```powershell
 # Compile and run with -run flag
-.\Compile.ps1 -run
+.\PowerShellApp\Compile.ps1 -run
 ```
 
 ### Automated Tests
 
-Tests are in `/pester/`:
+Tests are in `PowerShellApp/pester/`:
 - `configs.Tests.ps1`: Validates JSON configurations
 - `functions.Tests.ps1`: Tests PowerShell functions
 
@@ -669,7 +676,7 @@ Run tests:
 ```powershell
 Install-Module -Name Pester -RequiredVersion 5.8.0 -Scope CurrentUser -Force -SkipPublisherCheck
 Import-Module Pester -RequiredVersion 5.8.0 -Force
-Invoke-Pester -Path 'pester/*.Tests.ps1' -Output Detailed -CI
+Invoke-Pester -Path 'PowerShellApp/pester/*.Tests.ps1' -Output Detailed -CI
 ```
 
 ## Build Process
@@ -677,17 +684,24 @@ Invoke-Pester -Path 'pester/*.Tests.ps1' -Output Detailed -CI
 ### Development Build
 
 ```powershell
-.\Compile.ps1
+.\PowerShellApp\Compile.ps1
 ```
 
-Outputs `AspectUtils.ps1` in the root directory.
+Outputs `PowerShellApp/AspectUtils.ps1`.
+
+### Desktop Build
+
+```powershell
+dotnet build MainApp\AspectUtils.Desktop.csproj -c Release
+```
 
 ### Production Release
 
-1. Tag release in Git
-2. GitHub Actions builds and uploads `AspectUtils.ps1`
-3. Release appears on GitHub Releases
-4. Users download the release asset or run it from the repository
+1. Tag release in Git.
+2. GitHub Actions compiles `PowerShellApp/AspectUtils.ps1`.
+3. The pre-release workflow runs `Installer/build.ps1` to produce the single-file WPF setup launcher (`AspectUtilsSetup.exe`) and optional `AspectUtils_Install.exe` with `-Inno`.
+4. Release appears on GitHub Releases with the PowerShell script, setup launcher, and optional Inno installer attached.
+5. Users download the release assets or run the PowerShell script from the repository.
 
 ## Dependencies
 

@@ -1,0 +1,273 @@
+<Window x:Class="AspectUtils.Installer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="A$PECT UTILS Setup"
+        Width="760"
+        Height="520"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        ShowInTaskbar="True"
+        FontFamily="Segoe UI"
+        TextOptions.TextFormattingMode="Display"
+        UseLayoutRounding="True"
+        SnapsToDevicePixels="True"
+        Icon="Assets/appicon.ico">
+
+    <Border x:Name="Shell"
+            Background="{StaticResource BackgroundBrush}"
+            BorderBrush="{StaticResource BorderBrush}"
+            BorderThickness="1"
+            CornerRadius="18"
+            Opacity="0">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="32"
+                              ShadowDepth="0"
+                              Opacity="0.55"
+                              Color="#000000" />
+        </Border.Effect>
+        <Border.RenderTransform>
+            <TranslateTransform x:Name="ShellTransform" />
+        </Border.RenderTransform>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="54" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="54" />
+            </Grid.RowDefinitions>
+
+            <!-- Title bar -->
+            <Grid Grid.Row="0"
+                  Background="Transparent"
+                  MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                <StackPanel Orientation="Horizontal"
+                            Margin="20,0,0,0"
+                            VerticalAlignment="Center">
+                    <Image Source="Assets/brand.png"
+                           Width="18"
+                           Height="18"
+                           RenderOptions.BitmapScalingMode="HighQuality" />
+                    <TextBlock Text="A$PECT UTILS"
+                               Margin="10,0,0,0"
+                               VerticalAlignment="Center"
+                               Foreground="{StaticResource MutedBrush}"
+                               FontSize="12"
+                               FontWeight="SemiBold" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Margin="0,0,10,0">
+                    <Button x:Name="MinimizeBtn"
+                            Style="{StaticResource IconButton}"
+                            Click="MinimizeBtn_Click"
+                            ToolTip="Minimize"
+                            AutomationProperties.Name="Minimize">
+                        <Path Data="M 1,6 H 11"
+                              Stroke="{StaticResource MutedBrush}"
+                              StrokeThickness="1.4"
+                              StrokeStartLineCap="Round"
+                              StrokeEndLineCap="Round" />
+                    </Button>
+                    <Button x:Name="CloseBtn"
+                            Style="{StaticResource IconButton}"
+                            Click="CloseBtn_Click"
+                            Margin="2,0,0,0"
+                            ToolTip="Close"
+                            AutomationProperties.Name="Close">
+                        <Path Data="M 1,1 L 9,9 M 9,1 L 1,9"
+                              Stroke="{StaticResource MutedBrush}"
+                              StrokeThickness="1.4"
+                              StrokeStartLineCap="Round"
+                              StrokeEndLineCap="Round" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <!-- Body -->
+            <Grid Grid.Row="1" Margin="40,0" ClipToBounds="True">
+                <Ellipse Width="360"
+                         Height="220"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Top"
+                         Margin="0,-90,0,0"
+                         IsHitTestVisible="False"
+                         Opacity="0.14">
+                    <Ellipse.Fill>
+                        <RadialGradientBrush>
+                            <GradientStop Color="#4ADE80" Offset="0" />
+                            <GradientStop Color="#004ADE80" Offset="1" />
+                        </RadialGradientBrush>
+                    </Ellipse.Fill>
+                </Ellipse>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="1"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                MaxWidth="560">
+
+                        <Grid Width="68" Height="68" HorizontalAlignment="Center">
+                            <Border x:Name="BrandHost"
+                                    CornerRadius="20"
+                                    Background="{StaticResource SurfaceBrush}"
+                                    BorderBrush="{StaticResource BorderBrush}"
+                                    BorderThickness="1">
+                                <Image Source="Assets/brand.png"
+                                       Width="34"
+                                       Height="34"
+                                       RenderOptions.BitmapScalingMode="HighQuality" />
+                            </Border>
+
+                            <Grid x:Name="SpinnerHost" Visibility="Collapsed">
+                                <Grid.RenderTransform>
+                                    <RotateTransform x:Name="SpinnerRotate" CenterX="34" CenterY="34" />
+                                </Grid.RenderTransform>
+                                <Ellipse Width="66"
+                                         Height="66"
+                                         Stroke="#1E2823"
+                                         StrokeThickness="3" />
+                                <Path Data="M 34,4 A 30,30 0 0 1 64,34"
+                                      Stroke="{StaticResource MintBrush}"
+                                      StrokeThickness="3"
+                                      StrokeStartLineCap="Round"
+                                      StrokeEndLineCap="Round" />
+                            </Grid>
+
+                            <Grid x:Name="SuccessHost" Visibility="Collapsed">
+                                <Ellipse Width="66"
+                                         Height="66"
+                                         Fill="#14251C"
+                                         Stroke="{StaticResource MintBrush}"
+                                         StrokeThickness="1.5" />
+                                <Path Data="M 22,35 L 31,44 L 47,26"
+                                      Stroke="{StaticResource MintBrush}"
+                                      StrokeThickness="3"
+                                      StrokeStartLineCap="Round"
+                                      StrokeEndLineCap="Round"
+                                      StrokeLineJoin="Round" />
+                            </Grid>
+
+                            <Grid x:Name="ErrorHost" Visibility="Collapsed">
+                                <Ellipse Width="66"
+                                         Height="66"
+                                         Fill="#251A18"
+                                         Stroke="{StaticResource DangerBrush}"
+                                         StrokeThickness="1.5" />
+                                <TextBlock Text="!"
+                                           Foreground="{StaticResource DangerBrush}"
+                                           FontSize="30"
+                                           FontWeight="SemiBold"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Margin="0,-2,0,0" />
+                            </Grid>
+                        </Grid>
+
+                        <TextBlock x:Name="TitleText"
+                                   Text="Ready to install"
+                                   Margin="0,22,0,0"
+                                   HorizontalAlignment="Center"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   Foreground="{StaticResource TextBrush}"
+                                   FontSize="30"
+                                   FontWeight="SemiBold"
+                                   FontFamily="Segoe UI Variable Display, Segoe UI" />
+
+                        <TextBlock x:Name="StatusText"
+                                   Text="A$PECT UTILS installs for every account on this PC."
+                                   Margin="0,10,0,0"
+                                   HorizontalAlignment="Center"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   MaxWidth="470"
+                                   LineHeight="22"
+                                   Foreground="{StaticResource MutedBrush}"
+                                   FontSize="14" />
+
+                        <TextBlock x:Name="DetailText"
+                                   Margin="0,8,0,0"
+                                   HorizontalAlignment="Center"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   MaxWidth="470"
+                                   LineHeight="19"
+                                   Foreground="{StaticResource SubtleBrush}"
+                                   FontSize="12"
+                                   Visibility="Collapsed" />
+
+                        <ProgressBar x:Name="InstallProgress"
+                                     Style="{StaticResource SlimProgress}"
+                                     Width="340"
+                                     Height="4"
+                                     Minimum="0"
+                                     Maximum="100"
+                                     Value="0"
+                                     Margin="0,24,0,0"
+                                     Visibility="Collapsed" />
+
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center"
+                                    Margin="0,26,0,0">
+                            <Button x:Name="PrimaryActionButton"
+                                    Content="Install"
+                                    Style="{StaticResource AccentButton}"
+                                    Height="44"
+                                    MinWidth="210"
+                                    IsDefault="True"
+                                    Click="PrimaryAction_Click" />
+                            <Button x:Name="SecondaryActionButton"
+                                    Content="Close"
+                                    Style="{StaticResource TextButton}"
+                                    Margin="12,0,0,0"
+                                    Visibility="Collapsed"
+                                    Click="SecondaryAction_Click" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+            <!-- Footer -->
+            <Grid Grid.Row="2" Margin="24,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Viewbox Width="14" Height="14" Margin="0,0,7,0">
+                        <Path Data="M 1,3 H 6 L 7.5,5 H 15 V 13 H 1 Z"
+                              Stroke="{StaticResource SubtleBrush}"
+                              StrokeThickness="1.2"
+                              Fill="Transparent" />
+                    </Viewbox>
+                    <TextBlock x:Name="InstallPathText"
+                               Text="C:\Program Files\A$PECT UTILS"
+                               MaxWidth="420"
+                               TextTrimming="CharacterEllipsis"
+                               VerticalAlignment="Center"
+                               Foreground="{StaticResource SubtleBrush}"
+                               FontSize="11.5" />
+                </StackPanel>
+
+                <CheckBox x:Name="DesktopShortcutCheck"
+                          Grid.Column="1"
+                          Content="Desktop shortcut"
+                          Style="{StaticResource LinkCheckBox}"
+                          IsChecked="True"
+                          VerticalAlignment="Center" />
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

@@ -19,10 +19,18 @@ __pycache__/
 .idea/
 
 # .NET build output
-desktop/bin/
-desktop/obj/
+**/bin/
+**/obj/
 artifacts/
+Installer/stage/
+Installer/output/
+Installer/payload/
+Installer/release/
+*.user
+*.suo
 
 # local release artifacts
 AspectUtils-Desktop.zip
+AspectUtils-Setup.zip
+AspectUtils_Install.exe
 AspectUtils-Setup.exe

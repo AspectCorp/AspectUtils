@@ -4,14 +4,14 @@ on:
   push:
     branches: ["main"]
     paths:
-      - "desktop/**"
-      - "config/**"
+      - "MainApp/**"
+      - "PowerShellApp/config/**"
       - ".github/workflows/desktop-build.yaml"
   pull_request:
     branches: ["main"]
     paths:
-      - "desktop/**"
-      - "config/**"
+      - "MainApp/**"
+      - "PowerShellApp/config/**"
       - ".github/workflows/desktop-build.yaml"
   workflow_dispatch:
 
@@ -31,11 +31,11 @@ jobs:
           dotnet-version: "8.0.x"
 
       - name: Build
-        run: dotnet build desktop\AspectUtils.Desktop.csproj -c Release
+        run: dotnet build MainApp\AspectUtils.Desktop.csproj -c Release
 
       - name: Publish self-contained
         run: >
-          dotnet publish desktop\AspectUtils.Desktop.csproj
+          dotnet publish MainApp\AspectUtils.Desktop.csproj
           -c Release
           -r win-x64
           --self-contained true

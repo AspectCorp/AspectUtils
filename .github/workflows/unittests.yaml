@@ -18,7 +18,7 @@ jobs:
       shell: pwsh
     - name: Run PSScriptAnalyzer
       run: |
-        $results = Invoke-ScriptAnalyzer -Path . -Settings ./lint/PSScriptAnalyser.ps1 -Recurse
+        $results = Invoke-ScriptAnalyzer -Path ./PowerShellApp -Settings ./PowerShellApp/lint/PSScriptAnalyser.ps1 -Recurse
         if ($results) {
             $results | Format-Table -AutoSize | Out-String -Width 4096 | Write-Host
         } else {
@@ -44,7 +44,7 @@ jobs:
       run: |
         Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
         Import-Module Pester -RequiredVersion 5.8.0 -Force
-        Invoke-Pester -Path 'pester/*.Tests.ps1' -Output Detailed -CI
+        Invoke-Pester -Path 'PowerShellApp/pester/*.Tests.ps1' -Output Detailed -CI
 
       shell: pwsh
       env:
