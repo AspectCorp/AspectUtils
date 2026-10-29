@@ -167,14 +167,18 @@ if (Test-Path -LiteralPath $stalePayload) {
     Remove-Item -LiteralPath $stalePayload -Recurse -Force
 }
 
-$launcherPath = Join-Path $launcherOutput 'AspectUtilsSetup.exe'
+$launcherPath = Join-Path $launcherOutput ('AspectUtils-' + $appVersion + '.exe')
+
+if (-not (Test-Path -LiteralPath $launcherPath)) {
+    $staleLauncher = Join-Path $launcherOutput 'AspectUtilsSetup.exe'
+    if (Test-Path -LiteralPath $staleLauncher) {
+        Move-Item -LiteralPath $staleLauncher -Destination $launcherPath -Force
+    }
+}
 
 if (-not (Test-Path -LiteralPath $launcherPath)) {
     throw "The launcher was not created at $launcherPath"
 }
-
-$launcher = Get-Item -LiteralPath $launcherPath
-$hash = (Get-FileHash -LiteralPath $launcherPath -Algorithm SHA256).Hash
 Write-Host ("Launcher: {0} ({1:N1} MB)" -f $launcherPath, ($launcher.Length / 1MB))
 Write-Host "SHA256:   $hash"
 
@@ -190,7 +194,15 @@ if ($Inno) {
         throw "Inno Setup failed with exit code $LASTEXITCODE"
     }
 
-    $innoInstaller = Join-Path $outputPath 'AspectUtils_Install.exe'
+    $innoInstallerName = 'AspectUtils-' + $appVersion + '.exe'
+    $innoInstaller = Join-Path $outputPath $innoInstallerName
+    $builtInno = Join-Path $outputPath 'AspectUtils_Install.exe'
+    if (Test-Path -LiteralPath $builtInno) {
+        if (Test-Path -LiteralPath $innoInstaller) {
+            Remove-Item -LiteralPath $innoInstaller -Force
+        }
+        Move-Item -LiteralPath $builtInno -Destination $innoInstaller -Force
+    }
     if (-not (Test-Path -LiteralPath $innoInstaller)) {
         throw "Installer was not created at $innoInstaller"
     }
@@ -199,7 +211,8 @@ if ($Inno) {
 }
 
 if ($Zip) {
-    $zipPath = Join-Path $outputPath 'AspectUtils-Desktop.zip'
+    $zipName = 'AspectUtils-' + $appVersion + '.zip'
+    $zipPath = Join-Path $outputPath $zipName
     if (Test-Path -LiteralPath $zipPath) {
         Remove-Item -LiteralPath $zipPath -Force
     }
